@@ -3,31 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>nyamachoma</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <img src="images/fork.png" alt="fork" class="fork-image">
     <div class="title-container" style="position: relative;">
        <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
        <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
     </div>
     <div class="section-1">
-        <div class="gallery-container">
-            <h1 class="option-text" style="position: relative; z-index: 3;">gallery</h1> 
-            <h1 class="option-shade-1" style="position: relative; z-index: 2;">yumba ya sanaa</h1>  
+        <div class="gallery-container" onclick="window.location.href='gallery.html'">
+            <h1 class="option-text">gallery</h1> 
+            <h1 class="option-shade-1">yumba ya sanaa</h1>  
         </div>
-        <div class="about-container">
-            <h1 class="option-text" style="position: relative; z-index: 3;">about</h1> 
-            <h1 class="option-shade-2" style="position: relative; z-index: 2;">kuhusu</h1> 
+        <div class="about-container" onclick="window.location.href='about.html'">
+            <h1 class="option-text">about</h1> 
+            <h1 class="option-shade-2">kuhusu</h1> 
         </div>
     </div>
-    <div class="tv-container">
-        <img src="images/tvoff.png" alt="tv" class="tv-image">
-        </img>
+    <div class="tv-image">
+        <img src="images/tvoff.png" alt="tv">
+        <video id="tv-video" autoplay muted playsinline class="tv-video">
+            <source src="channels/channel1.mp4" type="video/mp4">
+        </video>
         <h1 class="tv-sticker">LOVEYOURSTV</h1>
     </div>
-    <div class="contact-container">
-        <h1 class="option-text" style="position: relative; z-index: 3;">contact</h1> 
-        <h1 class="option-shade-2" style="position: relative; z-index: 2;">mawasiliano</h1> 
+    <div class="contact-container" onclick="window.location.href='contact.html'">
+        <h1 class="option-text">contact</h1> 
+        <h1 class="option-shade-3">mawasiliano</h1> 
     </div>
+    <script>
+    const videos = [
+    'channels/channel1.mp4',
+    'channels/channel2.mp4',
+    'channels/channel3.mp4',
+    'channels/channel4.mp4'
+    ];
+
+    let currentIndex = 0;
+    const videoElement = document.getElementById('tv-video');
+
+    videoElement.addEventListener('ended', () => {
+    currentIndex = (currentIndex + 1) % videos.length;
+    videoElement.src = videos[currentIndex];
+    videoElement.play();
+    });
+    </script>
 </body>
 </html>
