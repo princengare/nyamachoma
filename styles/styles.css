@@ -37,7 +37,8 @@ body {
     display: block;
     z-index: 1;
     margin-top: -7%;
-    margin-left: calc(73% - 5% * ((100vw - 320px) / (1280px - 320px)));
+    /* margin-left: calc(73% - 5% * ((100vw - 320px) / (1280px - 320px))); */
+    margin-left: clamp(68%, 1.5vw, 73%);
 }
 .option-text {
     color: #FFFFFF;
@@ -133,7 +134,8 @@ body {
     height: auto;
     display: block;; 
     position: relative;
-    margin-top: calc(-200px + 200px * ((100vw - 1280px) / (320px - 1280px)));
+    /* margin-top: calc(-200px + 200px * ((100vw - 1280px) / (320px - 1280px))); */
+    margin-top: clamp(-200px, calc((100vw - 480px) * (-200 / 800)), 0px);
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0;
