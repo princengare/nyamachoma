@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>nyamachoma</title>
   <link rel="stylesheet" href="styles/styles.css">
+  <audio id="bgm" audio autoplay loop>
+    <source src="sounds/menu.mp3" type="audio/mpeg">
+  </audio>
 </head>
 <body>
     <img src="images/fork.png" alt="fork" class="fork-image">
@@ -27,11 +30,13 @@
             <source src="channels/channel1.mp4" type="video/mp4">
         </video>
         <h1 class="tv-sticker">LOVEYOURSTV</h1>
+        <div class="tv-ellipse" style="position: absolute; z-index: 0;"></div>
     </div>
     <div class="contact-container" onclick="window.location.href='contact.html'">
         <h1 class="option-text">contact</h1> 
         <h1 class="option-shade-3">mawasiliano</h1> 
     </div>
+    <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
     <script>
     const videos = [
     'channels/channel1.mp4',
@@ -47,6 +52,35 @@
     currentIndex = (currentIndex + 1) % videos.length;
     videoElement.src = videos[currentIndex];
     videoElement.play();
+    });
+
+    function playAndNavigate(url) {
+    const audio = document.getElementById('menuClickAudio');
+    audio.currentTime = 0;
+    audio.play();
+    // Wait a short moment before navigating, or use 'ended' event for longer sounds
+    setTimeout(() => {
+        window.location.href = url;
+    }, 180); // Adjust delay (ms) to match your sound's click
+    }
+
+    document.querySelector('.gallery-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('gallery.html');
+    };
+    document.querySelector('.about-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('about.html');
+    };
+    document.querySelector('.contact-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('contact.html');
+    };
+    document.querySelector('.tv-image').addEventListener('click', function() {
+    const bgm = document.getElementById('bgm');
+    bgm.muted = false;
+    bgm.currentTime = 0;
+    bgm.play();
     });
     </script>
 </body>
