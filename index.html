@@ -58,10 +58,9 @@
     const audio = document.getElementById('menuClickAudio');
     audio.currentTime = 0;
     audio.play();
-    // Wait a short moment before navigating, or use 'ended' event for longer sounds
     setTimeout(() => {
         window.location.href = url;
-    }, 180); // Adjust delay (ms) to match your sound's click
+    }, 180);
     }
 
     document.querySelector('.gallery-container').onclick = function(e) {
