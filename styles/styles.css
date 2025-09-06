@@ -98,7 +98,6 @@ body {
     gap: 2vw;
     box-sizing: border-box;
 }
-
 .gallery-container, .about-container {
     margin: 0;
     flex: 1 1 0;
@@ -109,7 +108,22 @@ body {
     text-align: center;
     position: relative;
 }
-
+.gallery-container:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+.about-container:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+.contact-container:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+.tv-image:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
 .gallery-container {
     align-items: flex-start;
 }

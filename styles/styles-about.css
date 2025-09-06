@@ -105,6 +105,26 @@ body {
     position: relative;
     display: inline-block;
 }
+.triangle-container {
+    position: relative;
+    display: inline-block;
+}
+.triangle-container:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+.option-container:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+.option-container-2:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+.title-container:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
 
 
 .option-text {
