@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gallery</title>
+  <link rel="stylesheet" href="styles/styles-gallery.css">
+</head>
+<body>
+  <div class="header">
+    <div class="title-container" style="position: relative;" onclick="window.location.href='index.html'">
+        <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
+        <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
+    </div>
+    <div class="header-options">
+      <div class="triangle-container" onclick="window.location.href='about.html'">
+        <div class="triangle-down"></div>
+        <div class="triangle-text-about">about</div>
+      </div>
+      <div class="triangle-container" onclick="window.location.href='contact.html'">
+        <div class="triangle-up"></div>
+        <div class="triangle-text-contact">contact</div>
+      </div>
+    </div>
+  </div>
+  <div class="gallery-container">
+    <div class="column left-column">
+      <div class="option-container" onclick="window.location.href='gallery.html'">
+        <h1 class="option-shade-1">picha</h1> 
+        <h1 class="option-text">photos</h1> 
+      </div>
+      <div class="option-container-2" onclick="window.location.href='films.html'">
+        <h1 class="option-shade-1">filamu</h1> 
+        <h1 class="option-text">films</h1>
+      </div>
+    </div>
+    <div class="column right-column">
+      <div class="rectangle">
+        <div class="scrollable-content">
+            <div class="film-column">
+                <iframe
+                    class="film-item vimeo-video"
+                    src="https://player.vimeo.com/video/1116369371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    title="Vimeo video player"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <video class="film-item" controls>
+                    <source src="channels/films/curly_vision.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video class="film-item" controls>
+                    <source src="channels/films/poodles_of_1922_totes.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video class="film-item" controls>
+                    <source src="channels/films/MVI_6591.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video class="film-item" controls>
+                    <source src="channels/films/MVI_6888.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video class="film-item" controls>
+                    <source src="channels/films/MVI_6923.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
+  <script>
+    function playAndNavigate(url) {
+    const audio = document.getElementById('menuClickAudio');
+    audio.currentTime = 0;
+    audio.play();
+    setTimeout(() => {
+        window.location.href = url;
+    }, 180);
+    }
+
+    document.querySelector('.option-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('gallery.html');
+    };
+
+    document.querySelector('.option-container-2').onclick = function(e) {
+        e.stopPropagation();
+        playAndNavigate('films.html');
+    };
+
+    document.querySelectorAll('.triangle-container').forEach((container, index) => {
+    container.onclick = function(e) {
+        e.stopPropagation();
+        if (index === 0) {
+            playAndNavigate('about.html');
+        } else {
+            playAndNavigate('contact.html');
+        }
+    };
+    });
+
+    document.querySelector('.title-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('index.html');
+    };
+  </script>
+</body>
+</html>

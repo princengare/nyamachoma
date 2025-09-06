@@ -77,10 +77,14 @@
     };
     document.querySelector('.tv-image').addEventListener('click', function() {
     const bgm = document.getElementById('bgm');
-    bgm.muted = false;
-    bgm.currentTime = 0;
-    bgm.play();
-    });
+    if (bgm.paused) {
+        bgm.muted = false;
+        bgm.currentTime = 0;
+        bgm.play();
+    } else {
+        bgm.muted = false;
+    }
+});
     </script>
 </body>
 </html>
