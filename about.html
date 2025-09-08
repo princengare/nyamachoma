@@ -19,7 +19,44 @@
       <div class="triangle-container" onclick="window.location.href='contact.html'">
         <div class="triangle-up"></div>
         <div class="triangle-text-contact">contact</div>
-      </div>"
+      </div>
+    </div>
   </div>
+  <div class="gallery-container">
+    <div class="column left-column">
+      <div class="rectangle">
+        <img src="images/about/IMG_2517.JPG" alt="About Image" class="rectangle-image" id="clickable-image">
+      </div>
+    </div>
+    <div class="column right-column">
+      <div class="about-text">
+        <span class="dropcap">a</span> record i was once an artist.<br>
+        <span class="dropcap">a</span> reminder i still am one.<br>
+        <span class="dropcap">a</span> resolve to keep creating,<br>
+        in all the silence and the noise.<br>
+        if this too deep for the intro,<br> 
+        i’ll find another use.<br> 
+        but just in case it’s perfect,<br> 
+        let me introduce:<br> 
+        <span class="title-text">nyama choma</span>.
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const images = [
+      'images/about/IMG_2517.JPG',
+      'images/about/IMG_5187.JPG', 
+      'images/about/IMG_5222.JPG'
+  ];
+
+  let currentImageIndex = 0;
+  const imageElement = document.getElementById('clickable-image');
+
+  imageElement.addEventListener('click', function() {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      imageElement.src = images[currentImageIndex];
+  });
+  </script>
 </body>
 </html>
