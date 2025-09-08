@@ -7,16 +7,16 @@
 </head>
 <body>
   <div class="header">
-    <div class="title-container" style="position: relative;" onclick="window.location.href='index.html'">
+    <div class="title-container" style="position: relative;" onclick="playAndNavigate('index.html')">
         <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
         <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
     </div>
     <div class="header-options">
-      <div class="triangle-container" onclick="window.location.href='gallery.html'">
+      <div class="triangle-container" onclick="playAndNavigate('gallery.html')">
         <div class="triangle-down"></div>
         <div class="triangle-text-about">gallery</div>
       </div>
-      <div class="triangle-container" onclick="window.location.href='contact.html'">
+      <div class="triangle-container" onclick="playAndNavigate('contact.html')">
         <div class="triangle-up"></div>
         <div class="triangle-text-contact">contact</div>
       </div>
@@ -42,21 +42,35 @@
       </div>
     </div>
   </div>
-
+  <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
   <script>
-  const images = [
-      'images/about/IMG_2517.JPG',
-      'images/about/IMG_5187.JPG', 
-      'images/about/IMG_5222.JPG'
-  ];
+    const audio = document.getElementById('menuClickAudio');
+    function playAndNavigate(url) {
+    audio.currentTime = 0;
+    audio.play();
+    setTimeout(() => {
+        window.location.href = url;
+    }, 180);
+    }
 
-  let currentImageIndex = 0;
-  const imageElement = document.getElementById('clickable-image');
+    const images = [
+        'images/about/IMG_2517.JPG',
+        'images/about/IMG_5187.JPG', 
+        'images/about/IMG_5222.JPG'
+    ];
 
-  imageElement.addEventListener('click', function() {
-      currentImageIndex = (currentImageIndex + 1) % images.length;
-      imageElement.src = images[currentImageIndex];
-  });
+    let currentImageIndex = 0;
+    const imageElement = document.getElementById('clickable-image');
+
+    imageElement.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        const clickAudio = new Audio('sounds/menu-click.mp3');
+        clickAudio.play().catch(err => console.log('Audio failed:', err));
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        imageElement.src = images[currentImageIndex];
+    });
   </script>
 </body>
 </html>
