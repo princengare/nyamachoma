@@ -205,6 +205,8 @@ body {
     width: auto;
     height: auto;
     object-fit: contain;
+    pointer-events: auto;
+    cursor: pointer;
 }
 .rectangle-image:hover {
     transform: scale(1.05);
