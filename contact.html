@@ -7,19 +7,78 @@
 </head>
 <body>
   <div class="header">
-    <div class="title-container" style="position: relative;" onclick="window.location.href='index.html'">
+    <div class="title-container" style="position: relative;" onclick="playAndNavigate('index.html')"">
         <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
         <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
     </div>
     <div class="header-options">
-      <div class="triangle-container" onclick="window.location.href='gallery.html'">
+      <div class="triangle-container" onclick="playAndNavigate('gallery.html')">
         <div class="triangle-down"></div>
         <div class="triangle-text-about">gallery</div>
       </div>
-      <div class="triangle-container" onclick="window.location.href='about.html'">
+      <div class="triangle-container" onclick="playAndNavigate('about.html')">
         <div class="triangle-up"></div>
         <div class="triangle-text-about">about</div>
       </div>
+    </div>
   </div>
+  <div class="gallery-container">
+    <div class="column">
+      <div class="rectangle">
+        <div class="contact-content">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPQfgwIxmIn9UpPBz8YtsGFQMazECLkgkFltZb1UzVp88ksA/viewform?usp=dialog" target="_blank" class="book-button">
+          book here ♥
+          </a>
+        <div class="header-text">
+          <a href="https://instagram.com/dylangatua" target="_blank" class="social-link">instagram: @dylangatua</a><br>
+          <a href="mailto:kenyaselite21@gmail.com" class="social-link">email: kenyaselite21@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
 </body>
+<script>
+  const audio = document.getElementById('menuClickAudio');
+    function playAndNavigate(url) {
+    audio.currentTime = 0;
+    audio.play();
+    setTimeout(() => {
+        window.location.href = url;
+    }, 180);
+    }
+
+    document.querySelector('.book-button').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const audio = document.getElementById('menuClickAudio');
+    audio.currentTime = 0;
+    audio.play();
+    
+    const href = this.href;
+    
+    setTimeout(() => {
+        window.open(href, '_blank'); 
+    }, 180);
+  });
+  document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const audio = document.getElementById('menuClickAudio');
+        audio.currentTime = 0;
+        audio.play();
+        
+        setTimeout(() => {
+            if (this.href.startsWith('mailto:')) {
+                window.location.href = this.href;
+            } else {
+                window.open(this.href, '_blank');
+            }
+        }, 180);
+        
+        e.preventDefault();
+    });
+  });
+</script>
 </html>
