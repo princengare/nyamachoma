@@ -36,6 +36,26 @@
         <h1 class="option-text">contact</h1> 
         <h1 class="option-shade-3">mawasiliano</h1> 
     </div>
+    <div class="promo-container">
+        <h1 class="promo-text">PROMOT↓ONSpromotionsPROMOT↓ONSpromotions</h1>
+        <h1 class="promo-subheader">
+            click and download image for special rate.
+            present at the time of booking.
+            check terms and conditions. <br>
+            otherwise, valid 'til 3005, hold up. <br>
+        </h1>
+        <div class="promo-images">
+            <a href="images/promos/iPod Promo.png" download="ipod-coupon.jpg" class="promo-image-link">
+                <img src="images/promos/iPod Promo.png" alt="Ipod Promo" class="promo-image">
+            </a>
+            <a href="images/promos/DSi XL Promo.png" download="dsi-coupon.jpg" class="promo-image-link">
+                <img src="images/promos/DSi XL Promo.png" alt="DSi Promo" class="promo-image">
+            </a>
+            <a href="images/promos/Leap Frog Promo.png" download="leap-frog-coupon.jpg" class="promo-image-link">
+                <img src="images/promos/Leap Frog Promo.png" alt="Leap Frog Promo" class="promo-image">
+            </a>
+        </div>
+    </div>
     <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
     <script>
     const videos = [
@@ -84,7 +104,14 @@
     } else {
         bgm.muted = false;
     }
-});
+    });
+    document.querySelectorAll('.promo-image-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const audio = document.getElementById('menuClickAudio');
+        audio.currentTime = 0;
+        audio.play();
+    });
+    });
     </script>
 </body>
 </html>
