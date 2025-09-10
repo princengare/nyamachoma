@@ -207,6 +207,7 @@ body {
     position: relative;
     margin-top: 5%;
     gap: 10px;
+    margin-bottom: 2%;
 }
 .promo-text {
     color: #FFFFFF;
@@ -216,6 +217,33 @@ body {
     font-size: clamp(42px, 9vw, 96px);
     font-style: italic;
     text-align: center;
+    word-break: break-word;
+}
+.promo-marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap; 
+  box-sizing: border-box;
+}
+
+.promo-track {
+  display: inline-flex;
+  animation: marquee 34s linear infinite;
+}
+
+.promo-track span {
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(42px, 9vw, 96px);
+  font-style: italic;
+  letter-spacing: -0.11em;
+  padding-right: 0rem;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 .promo-subheader {
     color: #FFFFFF;
@@ -224,31 +252,125 @@ body {
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 22px;
-    font-size: clamp(14px, 2vw, 21px);
+    font-size: clamp(20px, 2vw, 55px);
     text-align: center;
     margin-top: -2%;
 }
 .promo-images {
     display: flex;
-    gap: 5px;
     justify-content: center;
     align-items: center;
-}
-
-.promo-image-link {
-    text-decoration: none;
-    display: block;
+    width: 100%;
+    margin: -5% auto;
+    padding: 0 10px;
 }
 
 .promo-image {
-    width: 100%;
+    flex: 0 0 clamp(360px, 60vw, 780px);
+    width: clamp(360px, 60vw, 780px);
     height: auto;
     border-radius: 10px;
-    cursor: pointer;
+    pointer-events: none;
     transition: transform 0.3s ease;
     object-fit: cover;
 }
-
-.promo-image:hover {
+.book-button {
+    background-color: #690093;
+    color: #FFFFFF;
+    width: clamp(130px, 18vw, 340px);
+    height: clamp(130px, 18vw, 340px);
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(20px, 2.5vw, 46px);
+    letter-spacing: -0.11em;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    flex: 0 0 auto;
+}
+.book-button-sub {
+    font-size: clamp(20px, 2.5vw, 46px);
+    font-style: italic;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(20px, 2.5vw, 46px);
+    letter-spacing: -0.11em;
+}
+.book-button:hover {
     transform: scale(1.05);
+    background-color: #8a1bb8;
+}
+.promo-track-2 {
+  display: inline-flex;
+  animation: marquee 26s linear infinite;
+}
+.promo-track-2 span {
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 6vw, 72px);
+  font-style: italic;
+  letter-spacing: -0.11em;
+  padding-right: 0rem;
+  margin-bottom: 0.4%;
+}
+.marquee--reverse .promo-track-2 {
+  animation-direction: reverse;
+}
+
+.subscribe-form-wrap {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 0 12px; 
+}
+
+.subscribe-form-wrap input[type="email"] {
+  border-radius: 12px;
+  border: 2px solid #fff;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  height: 48px;
+  padding: 0 14px;
+  font-family: 'Inter', sans-serif;
+}
+.subscribe-form-wrap button {
+  background: #690093;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  height: 48px;
+  padding: 0 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.subscribe-form-wrap button:hover {
+  background: #8a1bb8;
+}
+
+.promo-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(6px, 1.5vw, 14px);
+  width: 100%;
+  max-width: 1200px;
+  margin: 12px auto 24px;
+  padding: 0 10px;
+}
+.promo-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.08);
+  transition: transform 0.25s ease;
+}
+.promo-thumb:hover {
+  transform: scale(1.03);
 }
