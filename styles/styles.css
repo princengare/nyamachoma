@@ -247,7 +247,7 @@ body {
 }
 .promo-subheader {
     color: #FFFFFF;
-    opacity: 0.18;
+    opacity: 0.42;
     letter-spacing: -0.11em;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
@@ -352,15 +352,33 @@ body {
 .subscribe-form-wrap button:hover {
   background: #8a1bb8;
 }
+.promo-strip-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(10px, 3vw, 24px);
+  width: 100%;
+  padding: 0 25px;
+}
 
 .promo-strip {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: clamp(6px, 1.5vw, 14px);
   width: 100%;
-  max-width: 1200px;
-  margin: 12px auto 24px;
-  padding: 0 10px;
+}
+
+.promo-header {
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 4vw, 55px);
+  letter-spacing: -0.11em;
+  white-space: nowrap;
+  margin-top: clamp(12px, 3.5vw, 25px);
+  justify-content: center;
+  align-items: center; 
 }
 .promo-thumb {
   width: 100%;
