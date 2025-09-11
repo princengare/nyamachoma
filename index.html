@@ -121,13 +121,20 @@
         e.preventDefault();
         
         const audio = document.getElementById('menuClickAudio');
-        audio.currentTime = 0;
-        audio.play();
-        
         const href = this.href;
         
+        const playAudio = () => {
+            if (audio && audio.readyState >= 2) {
+                audio.currentTime = 0;
+                audio.play().catch(() => {
+                    console.log('Audio play failed, continuing with navigation');
+                });
+            }
+        };
+        
+        playAudio();
         setTimeout(() => {
-            window.open(href, '_blank'); 
+            window.open(href, '_blank');
         }, 180);
     });
     document.querySelectorAll('.promo-thumb-link').forEach(link => {
