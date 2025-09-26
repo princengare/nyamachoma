@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
   <link rel="manifest" href="/site.webmanifest">
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 </head>
 <body>
   <div class="header">
@@ -34,35 +35,23 @@
         <h1 class="option-shade-1">filamu</h1> 
         <h1 class="option-text">films</h1>
       </div>
-      <div class="triangle-container-2">
+      <div class="triangle-container-2" id="downloadToggle">
         <div class="triangle-down"></div>
         <div class="triangle-text-about">download</div>
+      </div>
+      <div class="download-option-container" id="downloadAllOption">
+        <div class="download-option"></div>
+        <div class="download-option-text">download all?</div>
+      </div>
+      <div class="download-option-container" id="startDownloadOption">
+        <div class="download-option"></div>
+        <div class="download-option-text-2">start download.</div>
       </div>
     </div>
     <div class="column right-column">
       <div class="rectangle">
         <div class="scrollable-content">
             <div class="film-column">
-                <iframe
-                    class="film-item vimeo-video"
-                    src="https://player.vimeo.com/video/1116369371?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                    title="Vimeo video player"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-                <video class="film-item" controls>
-                    <source src="channels/films/curly_vision.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <video class="film-item" controls>
-                    <source src="channels/films/echoes_of_the_east.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <video class="film-item" controls>
-                    <source src="channels/films/poodles_of_1922_totes.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
                 <video class="film-item" controls>
                     <source src="channels/films/MVI_6591.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -80,82 +69,425 @@
       </div>
     </div>
   </div>
+   <div id="downloadModal" class="modal-overlay" style="display:none;">
+    <div class="modal modal-box">
+        <div class="modal-header">
+            <h2 class="modal-title">before downloading...</h2>
+            <button type="button" id="dlCancel" class="btn btn-close" aria-label="close modal"></button>
+        </div>
+
+        <form id="downloadForm" novalidate>
+        <label class="modal-label">
+            enter your name. <span aria-hidden="true" style="opacity:.7">*</span>
+            <input id="dlName" class="modal-input" type="text" required autocomplete="name" />
+        </label>
+
+        <label class="modal-label">
+            enter your email.
+            <input id="dlEmail" class="modal-input" type="email" inputmode="email" autocomplete="email" />
+        </label>
+
+        <label class="modal-label">
+            or enter your phone number.
+            <input id="dlPhone" class="modal-input" type="tel" inputmode="tel" autocomplete="tel"/>
+        </label>
+
+        <div id="dlError" class="modal-error" role="alert" style="display:none;"></div>
+
+        <div class="modal-actions">
+            <button type="submit" id="dlConfirm" class="btn2 btn-primary">submit.</button>
+        </div>
+        </form>
+    </div>
+  </div>
+  <div id="progressModal" class="modal-overlay" style="display:none;">
+    <div class="modal modal-box progress-box">
+        <div class="progress-content">
+        <img src="images/user/run2.png" alt="" class="progress-img" />
+        <p id="progressText" class="progress-text">running</p>
+        </div>
+    </div>
+  </div>
   <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
   <script type="module">
-    // Import the functions you need from the SDKs you need
-
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-
-    // TODO: Add SDKs for Firebase products that you want to use
-
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-
-    // Your web app's Firebase configuration
-
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+    import {
+      getFirestore, doc, setDoc, updateDoc, increment, serverTimestamp,
+      collection, addDoc
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
     const firebaseConfig = {
-
-        apiKey: "AIzaSyAPHalnYFfFkCJspSeWNytSngnpEWC9lNk",
-
-        authDomain: "nyamachoma-57d58.firebaseapp.com",
-
-        projectId: "nyamachoma-57d58",
-
-        storageBucket: "nyamachoma-57d58.firebasestorage.app",
-
-        messagingSenderId: "1090224589648",
-
-        appId: "1:1090224589648:web:c8a08e362ea132a7e6ba55",
-
-        measurementId: "G-N7DGBF6Q79"
-
+      apiKey: "AIzaSyAPHalnYFfFkCJspSeWNytSngnpEWC9lNk",
+      authDomain: "nyamachoma-57d58.firebaseapp.com",
+      projectId: "nyamachoma-57d58",
+      storageBucket: "nyamachoma-57d58.firebasestorage.app",
+      messagingSenderId: "1090224589648",
+      appId: "1:1090224589648:web:c8a08e362ea132a7e6ba55",
+      measurementId: "G-N7DGBF6Q79"
     };
-
-
-    // Initialize Firebase
 
     const app = initializeApp(firebaseConfig);
-
     const analytics = getAnalytics(app);
+    const db = getFirestore(app);
 
+    // ---------- shared UI sound + nav ----------
     function playAndNavigate(url) {
-    const audio = document.getElementById('menuClickAudio');
-    audio.currentTime = 0;
-    audio.play();
-    setTimeout(() => {
-        window.location.href = url;
-    }, 180);
+      const audio = document.getElementById('menuClickAudio');
+      audio.currentTime = 0;
+      audio.play().catch(()=>{});
+      setTimeout(() => { window.location.href = url; }, 180);
+    }
+    function playClick() {
+      const audio = document.getElementById('menuClickAudio');
+      if (!audio) return;
+      audio.currentTime = 0;
+      audio.play().catch(()=>{});
     }
 
-
-    document.querySelector('.option-container').onclick = function(e) {
-    e.stopPropagation();
-    playAndNavigate('user.html');
-    };
-
-    document.querySelector('.option-container-2').onclick = function(e) {
-        e.stopPropagation();
-        playAndNavigate('user-films.html');
-    };
-
-    document.querySelector('.title-container-2').onclick = function(e) {
-    e.stopPropagation();
-    playAndNavigate('');
-    };
-
-    document.querySelector('.title-container').onclick = function(e) {
-    e.stopPropagation();
-    playAndNavigate('index.html');
-    };
-
-    document.getElementById('downloadAllTriangle').onclick = function(e) {
+    document.querySelector('.option-container').onclick = (e) => {
       e.stopPropagation();
-      downloadAllImages();
+      playAndNavigate('user.html');
     };
+    document.querySelector('.option-container-2').onclick = (e) => {
+      e.stopPropagation();
+      playAndNavigate('user-films.html');
+    };
+    document.querySelector('.title-container').onclick = (e) => {
+      e.stopPropagation();
+      playAndNavigate('index.html');
+    };
+
+    // ---------- session helpers ----------
+    const SESSION_KEY = 'nyamachoma_dl_user';
+    const getSessionUser = () => {
+      try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null'); }
+      catch { return null; }
+    };
+    const setSessionUser = (user) => sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    const hasSessionUser = () => !!getSessionUser();
+
+    // ---------- util ----------
+    function filenameFromUrl(url) {
+      try {
+        const u = new URL(url, window.location.href);
+        const name = u.pathname.split('/').pop();
+        return name || 'video';
+      } catch {
+        return (url.split('/').pop()) || 'video';
+      }
+    }
+    function videoIdFromUrl(url) {
+      try {
+        const u = new URL(url, window.location.href);
+        return u.pathname.replace(/\//g,'__');
+      } catch {
+        return url.replace(/\//g,'__');
+      }
+    }
+    async function blobFromUrl(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+      return await res.blob();
+    }
+
+    // ---------- Firestore logging ----------
+    async function recordVideoPlay(url) {
+      const id = videoIdFromUrl(url);
+      const ref = doc(db, 'videoPlays', id);
+      try {
+        await setDoc(ref, { url, count: increment(1), updatedAt: serverTimestamp() }, { merge: true });
+      } catch (_) {}
+    }
+    async function logDownload({ mode, urls, user }) {
+      try {
+        await addDoc(collection(db, 'downloads'), {
+          mode,
+          kind: 'video',
+          count: urls.length,
+          filenames: urls.map(filenameFromUrl),
+          user,
+          createdAt: serverTimestamp()
+        });
+      } catch (_) {}
+    }
+
+    // ---------- zipping ----------
+    async function zipAndDownload(urls, zipName = 'videos.zip') {
+      const zip = new window.JSZip();
+      const folder = zip.folder('videos');
+
+      const blobs = await Promise.all(
+        urls.map(async (u) => {
+          const blob = await blobFromUrl(u);
+          return { name: filenameFromUrl(u), blob };
+        })
+      );
+
+      blobs.forEach(({ name, blob }) => folder.file(name, blob));
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(zipBlob);
+      a.download = zipName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+
+    // ---------- DOM refs ----------
+    const rectangle        = document.querySelector('.rectangle');
+    const videoEls         = Array.from(document.querySelectorAll('.film-item'));
+    const toggleDownload   = document.getElementById('downloadToggle');
+    const downloadAllBtn   = document.getElementById('downloadAllOption');
+    const startDownloadBtn = document.getElementById('startDownloadOption');
+
+    const downloadModal = document.getElementById('downloadModal');
+    const downloadForm  = document.getElementById('downloadForm');
+    const dlName   = document.getElementById('dlName');
+    const dlEmail  = document.getElementById('dlEmail');
+    const dlPhone  = document.getElementById('dlPhone');
+    const dlError  = document.getElementById('dlError');
+    const dlCancel = document.getElementById('dlCancel');
+    const dlConfirm= document.getElementById('dlConfirm');
+
+    const progressModal = document.getElementById('progressModal');
+    const progressText  = document.getElementById('progressText');
+
+    // ---------- progress UI ----------
+    let dotsInterval = null;
+    let progressMinUntil = 0;
+
+    function showProgress() {
+      let dots = 0;
+      progressText.textContent = 'running';
+      progressModal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+      progressMinUntil = Date.now() + (4 * 275 * 2);
+      dotsInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        progressText.textContent = 'running' + '.'.repeat(dots);
+      }, 275);
+    }
+    function hideProgress() {
+      return new Promise((resolve) => {
+        const remaining = Math.max(0, progressMinUntil - Date.now());
+        setTimeout(() => {
+          if (dotsInterval) clearInterval(dotsInterval);
+          dotsInterval = null;
+          progressModal.style.display = 'none';
+          document.body.classList.remove('modal-open');
+          resolve();
+        }, remaining);
+      });
+    }
+    const waitForMinCycles = () =>
+      new Promise((resolve) => setTimeout(resolve, Math.max(0, progressMinUntil - Date.now())));
+
+    // ---------- modal ----------
+    let pendingDownload = null;
+    function openDownloadModal(urls, mode) {
+      pendingDownload = { mode, urls };
+      dlError.style.display = 'none';
+      dlError.textContent = '';
+      downloadModal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+      playClick();
+      setTimeout(() => dlName.focus(), 0);
+    }
+    function closeDownloadModal() {
+      downloadModal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      pendingDownload = null;
+    }
+    const isValidEmail = (v) => !!v && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+    const isValidPhone = (v) => !!v && ((v.match(/\d/g) || []).length >= 7);
+
+    dlCancel.addEventListener('click', () => { playClick(); closeDownloadModal(); });
+    downloadModal.addEventListener('click', (e) => {
+      if (e.target === downloadModal) { playClick(); closeDownloadModal(); }
+    });
+
+    downloadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      playClick();
+      const name  = dlName.value.trim();
+      const email = dlEmail.value.trim();
+      const phone = dlPhone.value.trim();
+
+      if (!name) {
+        dlError.textContent = 'please enter your name.';
+        dlError.style.display = 'block';
+        dlName.focus();
+        return;
+      }
+      if (!(isValidEmail(email) || isValidPhone(phone))) {
+        dlError.textContent = 'enter a valid email or phone number.';
+        dlError.style.display = 'block';
+        (email ? dlEmail : dlPhone).focus();
+        return;
+      }
+
+      dlConfirm.disabled = true;
+      try {
+        if (!pendingDownload) return;
+        const { mode, urls } = pendingDownload;
+        const user = { name, email: email || null, phone: phone || null };
+        setSessionUser(user);
+        closeDownloadModal();
+        await startDownloadFlow(urls, mode);
+      } catch (err) {
+        console.error(err);
+        alert('Sorry, something went wrong starting your download.');
+      } finally {
+        dlConfirm.disabled = false;
+        exitDownloadMode();
+      }
+    });
+
+    // ---------- download mode/select ----------
+    let downloadMode = false;
+    const selected = new Set();
+
+    function enterDownloadMode() {
+      if (downloadMode) return;
+      downloadMode = true;
+      document.body.classList.add('download-mode');
+    }
+    function clearSelections() {
+      selected.forEach(v => v.classList.remove('selected'));
+      selected.clear();
+    }
+    function exitDownloadMode() {
+      if (!downloadMode) return;
+      downloadMode = false;
+      document.body.classList.remove('download-mode');
+      clearSelections();
+    }
+
+    toggleDownload.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      enterDownloadMode();
+    });
+
+    // Toggle selection when clicking a video in download mode
+    rectangle.addEventListener('click', (e) => {
+      if (!downloadMode) return;
+      e.stopPropagation();
+      playClick();
+      const vid = e.target.closest('.film-item');
+      if (!vid) return;
+
+      // prevent accidental play while selecting
+      e.preventDefault();
+      try { vid.pause(); } catch(_) {}
+
+      vid.classList.toggle('selected');
+      if (vid.classList.contains('selected')) selected.add(vid);
+      else selected.delete(vid);
+    }, { capture: true });
+
+    // Start download (selected)
+    startDownloadBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      if (!downloadMode || selected.size === 0) return;
+
+      const urls = Array.from(selected).map(vid => {
+        // prefer source tag src; fallback to currentSrc
+        const srcEl = vid.querySelector('source');
+        return (srcEl && srcEl.src) || vid.currentSrc || '';
+      }).filter(Boolean);
+
+      if (!urls.length) return;
+
+      if (hasSessionUser()) {
+        startDownloadFlow(urls, 'selected').finally(exitDownloadMode);
+      } else {
+        openDownloadModal(urls, 'selected');
+      }
+    });
+
+    // Download all videos
+    downloadAllBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+
+      const urls = Array
+        .from(document.querySelectorAll('.film-item source'))
+        .map(s => s.src)
+        .filter(Boolean);
+
+      if (!urls.length) return;
+
+      if (hasSessionUser()) {
+        startDownloadFlow(urls, 'all').finally(exitDownloadMode);
+      } else {
+        openDownloadModal(urls, 'all');
+      }
+    });
+
+    // exit download mode if clicked outside controls/content
+    document.addEventListener('click', (e) => {
+      if (!downloadMode) return;
+      if (document.body.classList.contains('modal-open')) return;
+
+      const clickedInsideRectangle = rectangle.contains(e.target);
+      const clickedControls = toggleDownload.contains(e.target) ||
+                              downloadAllBtn.contains(e.target) ||
+                              startDownloadBtn.contains(e.target);
+
+      if (!clickedInsideRectangle && !clickedControls) exitDownloadMode();
+    });
+
+    // ---------- download flow ----------
+    async function startDownloadFlow(urls, mode) {
+      logEvent(analytics, 'download_start', { kind: 'video', mode, count: urls.length });
+      showProgress();
+      await waitForMinCycles();
+      await hideProgress();
+
+      if (mode === 'selected') {
+        await new Promise((resolve) => batchDownload(urls, resolve));
+      } else {
+        await zipAndDownload(urls, 'nyamachoma-films.zip');
+      }
+
+      logEvent(analytics, 'download_complete', { kind: 'video', mode, count: urls.length });
+      const user = getSessionUser();
+      logDownload({ mode, urls, user });
+    }
+
+    function batchDownload(urls, onDone) {
+      let i = 0;
+      const next = () => {
+        if (i >= urls.length) { onDone && onDone(); return; }
+        const url = urls[i++];
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filenameFromUrl(url);
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(next, 160);
+      };
+      next();
+    }
+
+    // ---------- analytics: track plays ----------
+    videoEls.forEach((vid) => {
+      const srcEl = vid.querySelector('source');
+      const url = (srcEl && srcEl.src) || '';
+      vid.addEventListener('play', () => {
+        if (downloadMode) return; // avoid counting selection clicks
+        if (url) {
+          recordVideoPlay(url);
+          logEvent(analytics, 'video_play', { video_id: filenameFromUrl(url) });
+        }
+      }, { capture: true });
+    });
   </script>
 </body>
 </html>
