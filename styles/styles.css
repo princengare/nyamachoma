@@ -248,13 +248,10 @@ body {
 .promo-subheader {
     color: #FFFFFF;
     opacity: 0.42;
-    letter-spacing: -0.11em;
+    letter-spacing: -0.13em;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: clamp(20px, 2vw, 55px);
-    font-kerning: none;
-    font-feature-settings: "kern" 0;
-    font-optical-sizing: none;
     text-align: center;
     margin-top: -2%;
 }
