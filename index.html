@@ -105,17 +105,45 @@
     'channels/channel3.mp4',
     'channels/channel4.mp4',
     'channels/channel5.mp4',
-    'channels/channel6.mp4'
+    'channels/channel6.mp4',
+    'channels/channel7.mp4',
+    'channels/channel8.mp4',
+    'channels/channel9.mp4',
+    'channels/channel10.mp4',
+    'channels/channel11.mp4',
+    'channels/channel12.mp4',
+    'channels/channel13.mp4',
+    'channels/channel14.mp4'
     ];
 
-    let currentIndex = 0;
     const videoElement = document.getElementById('tv-video');
 
-    videoElement.addEventListener('ended', () => {
-    currentIndex = (currentIndex + 1) % videos.length;
-    videoElement.src = videos[currentIndex];
+    function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+    }
+
+    const order = shuffle([...Array(videos.length).keys()]);
+
+    let currentPos = 0;
+
+    function playCurrent() {
+    const idx = order[currentPos];
+    videoElement.src = videos[idx];
     videoElement.play();
+    }
+
+    playCurrent();
+
+    videoElement.addEventListener('ended', () => {
+    currentPos = (currentPos + 1) % order.length;
+    playCurrent();
     });
+
 
     document.querySelector('.book-button').addEventListener('click', function(e) {
         e.preventDefault();
