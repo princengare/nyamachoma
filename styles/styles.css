@@ -254,6 +254,9 @@ body {
     font-size: clamp(20px, 2vw, 55px);
     text-align: center;
     margin-top: -2%;
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: "liga" 1, "clig" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
 }
 .promo-images {
     display: flex;
