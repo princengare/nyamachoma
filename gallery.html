@@ -196,6 +196,43 @@
     e.stopPropagation();
     playAndNavigate('index.html');
     };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAPHalnYFfFkCJspSeWNytSngnpEWC9lNk",
+        authDomain: "nyamachoma-57d58.firebaseapp.com",
+        projectId: "nyamachoma-57d58",
+        storageBucket: "nyamachoma-57d58.firebasestorage.app",
+        messagingSenderId: "1090224589648",
+        appId: "1:1090224589648:web:c8a08e362ea132a7e6ba55",
+        measurementId: "G-N7DGBF6Q79"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    (async function trackPageView() {
+        const pagePath = window.location.pathname || '/';
+        const pageKey  = pagePath.replace(/\//g, '__');
+
+        try {
+        await setDoc(
+            doc(db, 'pageViews', pageKey),
+            {
+            path: pagePath,
+            count: increment(1),
+            updatedAt: serverTimestamp(),
+            referrer: document.referrer || null,
+            ua: navigator.userAgent
+            },
+            { merge: true }
+        );
+        } catch (e) {
+        console.warn('page view log failed:', e);
+        }
+    })();
   </script>
 </body>
 </html>
