@@ -338,6 +338,32 @@
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     }
 
+    async function trackPageView({ oncePerSession = false } = {}) {
+    const pagePath = window.location.pathname || '/';
+    const pageKey  = pagePath.replace(/\//g, '__');
+    const sessionFlag = `pv:${pagePath}`;
+
+    if (oncePerSession && sessionStorage.getItem(sessionFlag)) return;
+
+    try {
+        await setDoc(
+        doc(db, 'pageViews', pageKey),
+        {
+            path: pagePath,
+            count: increment(1),
+            updatedAt: serverTimestamp(),
+            referrer: document.referrer || null
+        },
+        { merge: true }
+        );
+        if (oncePerSession) sessionStorage.setItem(sessionFlag, '1');
+    } catch (e) {
+        console.warn('page view log failed:', e);
+    }
+    }
+
+    trackPageView({ oncePerSession: false });
+
     
 
     const rectangle = document.querySelector('.rectangle');

@@ -599,6 +599,28 @@
         };
         next();
     }
+
+    (async function trackPageView() {
+    const pagePath = window.location.pathname || '/';
+    const pageKey  = pagePath.replace(/\//g, '__');
+
+    try {
+        await setDoc(
+        doc(db, 'pageViews', pageKey),
+        {
+            path: pagePath,
+            count: increment(1),
+            updatedAt: serverTimestamp(),
+            referrer: document.referrer || null,
+            ua: navigator.userAgent
+        },
+        { merge: true }
+        );
+    } catch (e) {
+        console.warn('page view log failed:', e);
+    }
+    })();
+
   </script>
 </body>
 </html>
