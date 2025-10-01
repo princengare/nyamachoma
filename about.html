@@ -13,16 +13,16 @@
 </head>
 <body>
   <div class="header">
-    <div class="title-container" style="position: relative;" onclick="playAndNavigate('index.html')">
+    <div class="title-container" style="position: relative;" onclick="window.location.href='index.html'">
         <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
         <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
     </div>
     <div class="header-options">
-      <div class="triangle-container" onclick="playAndNavigate('gallery.html')">
+      <div class="triangle-container" onclick="window.location.href='gallery.html'">
         <div class="triangle-down"></div>
         <div class="triangle-text-about">gallery</div>
       </div>
-      <div class="triangle-container" onclick="playAndNavigate('contact.html')">
+      <div class="triangle-container" onclick="window.location.href='contact.html'">
         <div class="triangle-up"></div>
         <div class="triangle-text-contact">contact</div>
       </div>
@@ -58,6 +58,22 @@
         window.location.href = url;
     }, 180);
     }
+
+    document.querySelectorAll('.triangle-container').forEach((container, index) => {
+    container.onclick = function(e) {
+        e.stopPropagation();
+        if (index === 0) {
+            playAndNavigate('gallery.html');
+        } else {
+            playAndNavigate('contact.html');
+        }
+    };
+    });
+
+    document.querySelector('.title-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('index.html');
+    };
 
     const images = [
         'images/about/IMG_2517.JPG',
