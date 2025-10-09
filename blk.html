@@ -369,6 +369,10 @@
     const dlConfirm = document.getElementById('dlConfirm');
     const progressModal = document.getElementById('progressModal');
     const progressText  = document.getElementById('progressText');
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const canShareFiles = () => !!(navigator.share && navigator.canShare);
+
+    const MAX_SHARE_FILES = 72;
 
     let dotsInterval = null;
     let progressMinUntil = 0;
@@ -486,6 +490,26 @@
         }
     });
 
+    async function shareImagesViaWebShare(urls, title = 'nyamachoma') {
+    const files = [];
+    for (let i = 0; i < urls.length; i++) {
+        const u = urls[i];
+        const blob = await blobFromUrl(u);
+        const type = blob.type || 'image/jpeg';
+        const name = filenameFromUrl(u);
+        files.push(new File([blob], name, { type }));
+    }
+
+    if (!navigator.canShare || !navigator.canShare({ files })) {
+        throw new Error('Web Share with files not supported for these items');
+    }
+
+    await navigator.share({
+        files,
+        title,
+        text: `${files.length} photo${files.length === 1 ? '' : 's'}`
+    });
+    }
 
 
     let downloadMode = false;
@@ -518,8 +542,39 @@
     }, { capture: true });
     });
 
+    function chunk(arr, size) {
+        const out = [];
+        for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+        return out;
+    }
+
     async function startDownloadFlow(urls, mode) {
         logEvent(analytics, 'download_start', { mode, count: urls.length });
+
+        if (isMobile && canShareFiles()) {
+            try {
+            if (urls.length > MAX_SHARE_FILES) {
+                const batches = chunk(urls, MAX_SHARE_FILES);
+                for (let i = 0; i < batches.length; i++) {
+                const batch = batches[i];
+                await shareImagesViaWebShare(
+                    batch,
+                    batches.length > 1 ? `nyamachoma (${i + 1}/${batches.length})` : 'nyamachoma'
+                );
+                }
+            } else {
+                await shareImagesViaWebShare(urls, 'nyamachoma');
+            }
+
+            logEvent(analytics, 'download_complete', { mode, count: urls.length });
+            const user = getSessionUser && getSessionUser();
+            if (user) logDownload({ mode, urls, user });
+            return;
+            } catch (e) {
+            console.warn('Web Share failed, falling back to non-share path:', e);
+            }
+        }
+
         showProgress();
         await waitForMinCycles();
         await hideProgress();
@@ -531,10 +586,11 @@
         }
 
         logEvent(analytics, 'download_complete', { mode, count: urls.length });
-
-        const user = getSessionUser();
-        logDownload({ mode, urls, user });
+        const user = getSessionUser && getSessionUser();
+        if (user) logDownload({ mode, urls, user });
     }
+
+
 
 
     function enterDownloadMode() {
