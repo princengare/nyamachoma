@@ -31,6 +31,10 @@
         <h1 class="option-shade-1">picha</h1> 
         <h1 class="option-text">photos</h1> 
       </div>
+      <div class="option-container-2" onclick="window.location.href='blk-films.html'">
+        <h1 class="option-shade-1">filamu</h1> 
+        <h1 class="option-text">films</h1>
+      </div>
       <div class="triangle-container-2" id="downloadToggle">
         <div class="triangle-down"></div>
         <div class="triangle-text-about">download</div>
@@ -304,6 +308,11 @@
     document.querySelector('.option-container').onclick = function(e) {
     e.stopPropagation();
     playAndNavigate('blk.html');
+    };
+
+    document.querySelector('.option-container-2').onclick = (e) => {
+      e.stopPropagation();
+      playAndNavigate('blk-films.html');
     };
 
     document.querySelector('.title-container').onclick = function(e) {
