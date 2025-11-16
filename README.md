@@ -7,6 +7,12 @@ i’ll find another use.
 but just in case it’s perfect,  
 let me introduce:
 # nyama choma.
-
-![home](home.png) ![gallery](gallery.png)  
-![about](about.png) ![contact](contact.png)
+*[nyamachoma.org](https://nyamachoma.org)*
+<p>
+  <img src="home.png" alt="home" />
+  <img src="gallery.png" alt="gallery" />
+</p>
+<p>
+  <img src="about.png" alt="about" />
+  <img src="contact.png" alt="contact" />
+</p>
