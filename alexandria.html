@@ -235,15 +235,9 @@
     audio.play().catch(() => {});
     }
 
-
-    document.querySelector('.option-container').onclick = function(e) {
-    e.stopPropagation();
-    playAndNavigate('alexandria.html');
-    };
-
     document.querySelector('.option-container-2').onclick = (e) => {
       e.stopPropagation();
-      playAndNavigate('alexandria-films.html');
+      playAndNavigate('alexandria.html');
     };
 
     document.querySelector('.title-container').onclick = function(e) {
