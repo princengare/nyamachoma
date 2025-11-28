@@ -385,7 +385,7 @@ body {
 .suku-gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr)); /* 2 columns */
-  gap: 2vw;
+  gap: 0.6vw;
   width: 95vw;
 }
 

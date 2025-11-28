@@ -104,6 +104,25 @@
         </picture>
         </a>
 
+        <a href="images/sukumawiki/MV5BMTYxODI4Nzg2MV5BMl5BanBnXkFtZTcwMDUzNTU0NA@@._V1_.webp" 
+            target="_blank" 
+            class="suku-gallery-item">
+            <picture>
+                <source type="image/webp"
+                srcset="
+                    images/sukumawiki/webp-400/MV5BMTYxODI4Nzg2MV5BMl5BanBnXkFtZTcwMDUzNTU0NA@@._V1_.webp 400w,
+                    images/sukumawiki/webp-800/MV5BMTYxODI4Nzg2MV5BMl5BanBnXkFtZTcwMDUzNTU0NA@@._V1_.webp 800w,
+                    images/sukumawiki/webp-1200/MV5BMTYxODI4Nzg2MV5BMl5BanBnXkFtZTcwMDUzNTU0NA@@._V1_.webp 1200w,
+                    images/sukumawiki/webp-1600/MV5BMTYxODI4Nzg2MV5BMl5BanBnXkFtZTcwMDUzNTU0NA@@._V1_.webp 1600w
+                ">
+                <img 
+                src="images/sukumawiki/webp-800/MV5BMTYxODI4Nzg2MV5BMl5BanBnXkFtZTcwMDUzNTU0NA@@._V1_.webp"
+                loading="lazy"
+                alt="">
+            </picture>
+        </a>
+
+
         <a href="images/sukumawiki/1dc02b71f16a34b3ac789ef80ab1134f.webp" target="_blank" class="suku-gallery-item">
         <picture>
             <source type="image/webp"
@@ -677,6 +696,43 @@
         </picture>
         </a>
 
+        <a href="images/sukumawiki/maxresdefault.webp" 
+        target="_blank" 
+        class="suku-gallery-item">
+        <picture>
+            <source type="image/webp"
+            srcset="
+                images/sukumawiki/webp-400/maxresdefault.webp 400w,
+                images/sukumawiki/webp-800/maxresdefault.webp 800w,
+                images/sukumawiki/webp-1200/maxresdefault.webp 1200w,
+                images/sukumawiki/webp-1600/maxresdefault.webp 1600w
+            ">
+            <img 
+            src="images/sukumawiki/webp-800/maxresdefault.webp"
+            loading="lazy"
+            alt="">
+        </picture>
+        </a>
+
+        <a href="images/sukumawiki/images14.webp" 
+        target="_blank" 
+        class="suku-gallery-item">
+        <picture>
+            <source type="image/webp"
+            srcset="
+                images/sukumawiki/webp-400/images14.webp 400w,
+                images/sukumawiki/webp-800/images14.webp 800w,
+                images/sukumawiki/webp-1200/images14.webp 1200w,
+                images/sukumawiki/webp-1600/images14.webp 1600w
+            ">
+            <img 
+            src="images/sukumawiki/webp-800/images14.webp"
+            loading="lazy"
+            alt="">
+        </picture>
+        </a>
+
+
         <a href="images/sukumawiki/shutterstock_editorial_8818497a_huge.webp" target="_blank" class="suku-gallery-item">
         <picture>
             <source type="image/webp"
@@ -744,9 +800,14 @@
 <script type="module">
   const audio = document.getElementById('menuClickAudio');
 
-  function playAndNavigate(url) {
+  function playClick() {
+    if (!audio) return;
     audio.currentTime = 0;
     audio.play();
+  }
+
+  function playAndNavigate(url) {
+    playClick();
     setTimeout(() => {
       window.location.href = url;
     }, 180);
@@ -779,12 +840,9 @@
     bookButton.addEventListener('click', function (e) {
       e.preventDefault();
 
-      const audio = document.getElementById('menuClickAudio');
-      audio.currentTime = 0;
-      audio.play();
+      playClick();
 
       const href = this.href;
-
       setTimeout(() => {
         window.open(href, '_blank');
       }, 180);
@@ -796,9 +854,9 @@
   if (socialLinks.length > 0) {
     socialLinks.forEach(link => {
       link.addEventListener('click', function (e) {
-        const audio = document.getElementById('menuClickAudio');
-        audio.currentTime = 0;
-        audio.play();
+        e.preventDefault();
+
+        playClick();
 
         setTimeout(() => {
           if (this.href.startsWith('mailto:')) {
@@ -807,9 +865,27 @@
             window.open(this.href, '_blank');
           }
         }, 180);
-
-        e.preventDefault();
       });
+    });
+  }
+
+  /* ---------- HERO IMAGE → INSPIRATION ---------- */
+
+  const inspirationLink = document.querySelector('a[href="#inspiration"]');
+  if (inspirationLink) {
+    inspirationLink.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      playClick();
+
+      const target = document.getElementById('inspiration');
+      setTimeout(() => {
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.location.hash = 'inspiration';
+        }
+      }, 180);
     });
   }
 
@@ -832,7 +908,6 @@
 
     if (!imgEl) return;
 
-    // If you ever want a special large version, you can set data-large-src on the <img>.
     const largeSrc = imgEl.getAttribute('data-large-src') || imgEl.src;
     const altText = imgEl.alt || '';
 
@@ -842,7 +917,6 @@
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
-
 
   function closeLightbox() {
     lightbox.classList.remove('is-open');
@@ -856,41 +930,48 @@
     openLightbox(currentIndex);
   }
 
-  // Click on gallery items -> open lightbox
+  // Click on gallery items -> open lightbox (with click sound)
   galleryItems.forEach((item, index) => {
     item.addEventListener('click', (e) => {
       e.preventDefault(); // prevent target="_blank" navigation
+      playClick();        // entering lightbox = sound
       openLightbox(index);
     });
   });
 
-  // Arrows
+  // Arrows (with click sound)
   prevBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    playClick();         // every cycle = sound
     showNext(-1);
   });
 
   nextBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    playClick();         // every cycle = sound
     showNext(1);
   });
 
-  // Click outside image (on dark overlay) closes
+  // Click outside image (on dark overlay) closes (with click sound)
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) {
+      playClick();
       closeLightbox();
     }
   });
 
-  // Keyboard controls: Esc to close, arrows to navigate
+  // Keyboard controls: Esc to close, arrows to navigate (with sound)
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('is-open')) return;
 
     if (e.key === 'Escape') {
+      playClick();
       closeLightbox();
     } else if (e.key === 'ArrowRight') {
+      playClick();
       showNext(1);
     } else if (e.key === 'ArrowLeft') {
+      playClick();
       showNext(-1);
     }
   });
