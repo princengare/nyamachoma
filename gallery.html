@@ -1217,6 +1217,13 @@
     </div>
   </div>
   <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
+
+  <div id="userLightbox" class="suku-lightbox-overlay">
+    <button class="suku-lightbox-arrow suku-lightbox-prev" aria-label="Previous image">&#10094;</button>
+    <img class="suku-lightbox-image" src="" alt="">
+    <button class="suku-lightbox-arrow suku-lightbox-next" aria-label="Next image">&#10095;</button>
+  </div>
+
   <script type="module">
     function playAndNavigate(url) {
     const audio = document.getElementById('menuClickAudio');
@@ -1269,6 +1276,18 @@
     const app = initializeApp(firebaseConfig);
     const db  = getFirestore(app);
 
+    const menuClickAudio = document.getElementById('menuClickAudio');
+
+    function playMenuClick() {
+      if (!menuClickAudio) return;
+      try {
+        menuClickAudio.currentTime = 0;
+        menuClickAudio.play();
+      } catch (e) {
+        // ignore autoplay errors
+      }
+    }
+
     (async function trackPageView() {
         const pagePath = window.location.pathname || '/';
         const pageKey  = pagePath.replace(/\//g, '__');
@@ -1289,6 +1308,97 @@
         console.warn('page view log failed:', e);
         }
     })();
+    /* ========= LIGHTBOX LOGIC ========= */
+    const lightbox      = document.getElementById('userLightbox');
+    const lightboxImg   = lightbox.querySelector('.suku-lightbox-image');
+    const prevBtn       = lightbox.querySelector('.suku-lightbox-prev');
+    const nextBtn       = lightbox.querySelector('.suku-lightbox-next');
+    const imageLinks    = Array.from(document.querySelectorAll('.image-link'));
+
+    let currentIndex = -1;
+
+    function showImage(index) {
+      if (!imageLinks.length) return;
+
+      // wrap-around
+      if (index < 0) {
+        index = imageLinks.length - 1;
+      } else if (index >= imageLinks.length) {
+        index = 0;
+      }
+
+      currentIndex = index;
+      const linkEl = imageLinks[currentIndex];
+      const imgEl  = linkEl.querySelector('img');
+
+      // Use full-size href if present, fallback to img src
+      const src = linkEl.getAttribute('href') || imgEl.src;
+      lightboxImg.src = src;
+      lightboxImg.alt = imgEl.alt || '';
+    }
+
+    function openLightbox(index) {
+      showImage(index);
+      lightbox.classList.add('suku-lightbox-open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('suku-lightbox-open');
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+    }
+
+    function showNext(delta) {
+      if (currentIndex === -1) return;
+      showImage(currentIndex + delta);
+    }
+
+    // Intercept clicks on gallery images
+    imageLinks.forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();       // stop opening a new tab
+        e.stopPropagation();
+        playMenuClick();
+        openLightbox(index);
+      });
+    });
+
+    // Prev / Next buttons
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playMenuClick();
+      showNext(-1);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playMenuClick();
+      showNext(1);
+    });
+
+    // Click outside image to close
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        playMenuClick();
+        closeLightbox();
+      }
+    });
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('suku-lightbox-open')) return;
+
+      if (e.key === 'Escape') {
+        playMenuClick();
+        closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        playMenuClick();
+        showNext(1);
+      } else if (e.key === 'ArrowLeft') {
+        playMenuClick();
+        showNext(-1);
+      }
+    });
   </script>
 </body>
 </html>
