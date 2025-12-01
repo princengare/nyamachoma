@@ -436,15 +436,15 @@ body {
   border: none;
   background: rgba(0, 0, 0, 0.45);
 
-  width: clamp(64px, 10vw, 120px);
-  height: clamp(64px, 10vw, 120px);
+  width: clamp(100px, 10vw, 120px);
+  height: clamp(100px, 10vw, 120px);
   border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: clamp(2.5rem, 7vw, 4.5rem); 
+  font-size: clamp(3.5rem, 7vw, 4.5rem); 
   line-height: 1;
   color: #fff;
   cursor: pointer;
@@ -469,8 +469,8 @@ body {
 
 @media (max-width: 600px) {
   .suku-lightbox-arrow {
-    width: 84px;
-    height: 84px;
+    width: 100px;
+    height: 100px;
     font-size: 3.5rem;
   }
 }

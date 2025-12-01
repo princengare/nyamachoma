@@ -814,18 +814,6 @@
         }
         });
     }
-    imageLinks.forEach(a => {
-    a.addEventListener('click', () => {
-        if (!downloadMode) {
-        const href = a.getAttribute('href');
-        recordPhotoClick(href);
-        logEvent(analytics, 'photo_click', {
-            image_id: filenameFromUrl(href) 
-        });
-        }
-    }, { capture: true });
-    });
-
     async function startDownloadFlow(urls, mode) {
         logEvent(analytics, 'download_start', { mode, count: urls.length });
         showProgress();

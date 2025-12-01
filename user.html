@@ -182,6 +182,13 @@
     </div>
   </div>
   <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
+
+  <div id="userLightbox" class="suku-lightbox-overlay">
+    <button class="suku-lightbox-arrow suku-lightbox-prev" aria-label="Previous image">&#10094;</button>
+    <img class="suku-lightbox-image" src="" alt="">
+    <button class="suku-lightbox-arrow suku-lightbox-next" aria-label="Next image">&#10095;</button>
+  </div>
+
   <script type="module">
     // Import the functions you need from the SDKs you need
 
@@ -382,6 +389,57 @@
     const progressModal = document.getElementById('progressModal');
     const progressText  = document.getElementById('progressText');
 
+
+        // ---------- LIGHTBOX FOR USER GALLERY ----------
+
+    const userLightbox = document.getElementById('userLightbox');
+    const userLightboxImg = userLightbox.querySelector('.suku-lightbox-image');
+    const userPrevBtn = userLightbox.querySelector('.suku-lightbox-prev');
+    const userNextBtn = userLightbox.querySelector('.suku-lightbox-next');
+
+    let currentIndex = 0;
+
+    function showLightboxImage(index) {
+      if (!imageLinks.length) return;
+      currentIndex = index;
+
+      const linkEl = imageLinks[currentIndex];
+      const imgEl  = linkEl.querySelector('img');
+
+      if (!imgEl) return;
+
+      // Use the full-size URL from href if present, else fallback to img.src
+      const src = linkEl.getAttribute('href') || imgEl.src;
+      const alt = imgEl.alt || '';
+
+      userLightboxImg.src = src;
+      userLightboxImg.alt = alt;
+
+      // Track photoclick for the image currently being viewed in the lightbox
+      recordPhotoClick(src);
+      logEvent(analytics, 'photo_click', {
+        image_id: filenameFromUrl(src)
+      });
+    }
+
+    function openUserLightbox(index) {
+      showLightboxImage(index);
+      userLightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeUserLightbox() {
+      userLightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function showUserNext(direction) {
+      if (!imageLinks.length) return;
+      const total = imageLinks.length;
+      currentIndex = (currentIndex + direction + total) % total;
+      showLightboxImage(currentIndex);
+    }
+
     let dotsInterval = null;
     let progressMinUntil = 0;
 
@@ -518,17 +576,59 @@
         }
         });
     }
-    imageLinks.forEach(a => {
-    a.addEventListener('click', () => {
-        if (!downloadMode) {
-        const href = a.getAttribute('href');
-        recordPhotoClick(href);
-        logEvent(analytics, 'photo_click', {
-            image_id: filenameFromUrl(href) 
-        });
+        imageLinks.forEach((a, index) => {
+      a.addEventListener('click', (e) => {
+        // Always prevent the default "open in new tab"
+        e.preventDefault();
+
+        // If we are in download mode, let the rectangle listener handle selection
+        if (downloadMode) {
+          return;
         }
-    }, { capture: true });
+
+        // Normal mode: open lightbox with sound
+        playClick();
+        openUserLightbox(index);
+      });
     });
+
+        // Lightbox arrows
+    userPrevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      showUserNext(-1);
+    });
+
+    userNextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      showUserNext(1);
+    });
+
+    // Click outside image closes lightbox
+    userLightbox.addEventListener('click', (e) => {
+      if (e.target === userLightbox) {
+        playClick();
+        closeUserLightbox();
+      }
+    });
+
+    // Keyboard: Esc to close, arrows to navigate (with sound)
+    document.addEventListener('keydown', (e) => {
+      if (!userLightbox.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
+        playClick();
+        closeUserLightbox();
+      } else if (e.key === 'ArrowRight') {
+        playClick();
+        showUserNext(1);
+      } else if (e.key === 'ArrowLeft') {
+        playClick();
+        showUserNext(-1);
+      }
+    });
+
 
     async function startDownloadFlow(urls, mode) {
         logEvent(analytics, 'download_start', { mode, count: urls.length });
