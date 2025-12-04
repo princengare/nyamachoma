@@ -374,7 +374,20 @@
     
 
     const rectangle = document.querySelector('.rectangle');
-    const imageLinks = Array.from(document.querySelectorAll('.image-link'));
+    const columnEls = Array.from(document.querySelectorAll('.image-column'));
+    const columnLinks = columnEls.map(col =>
+    Array.from(col.querySelectorAll('.image-link'))
+    );
+
+    const maxRows = Math.max(...columnLinks.map(col => col.length));
+
+    const imageLinks = [];
+    for (let row = 0; row < maxRows; row++) {
+    for (let c = 0; c < columnLinks.length; c++) {
+        const link = columnLinks[c][row];
+        if (link) imageLinks.push(link);
+    }
+    }
     const toggleDownload = document.getElementById('downloadToggle');
     const downloadAllBtn = document.getElementById('downloadAllOption');
     const startDownloadBtn = document.getElementById('startDownloadOption');
