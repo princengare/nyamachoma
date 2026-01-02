@@ -681,6 +681,72 @@ body.modal-open {
   transform: translateY(-50%) scale(1.05);
 }
 
+/* Circle button sized for download-option-text */
+.download-option-circle {
+  width: clamp(70px, 10.5vw, 110px);
+  height: clamp(70px, 10.5vw, 110px);
+
+  border-radius: 50%;
+  margin-top: clamp(14.35px, 2.87vw, 20.09px);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* translucent background ONLY */
+.download-option-circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #D9D9D9;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+/* Text stays fully opaque */
+.download-option-circle .download-option-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  color: #FFFFFF;
+  letter-spacing: -0.11em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+
+  font-size: clamp(18.28px, 3.91vw, 41.75px);
+  line-height: 1;
+
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* Hover matches other download buttons */
+.download-option-circle:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+#downloadAyomOption,
+#downloadKyraOption {
+  display: none;
+}
+
+
+body.download-mode #downloadAyomOption,
+body.download-mode #downloadKyraOption {
+  display: inline-block;
+}
+
 @media (max-width: 600px) {
   .suku-lightbox-arrow {
     width: 100px;

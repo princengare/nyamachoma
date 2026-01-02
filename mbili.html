@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>user</title>
+  <link rel="stylesheet" href="styles/styles-user.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+  <div class="header">
+    <div class="title-container" style="position: relative;" onclick="window.location.href='index.html'">
+        <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
+        <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
+    </div>
+    <div class="header-options">
+      <div class="triangle-container">
+        <div class="parallelogram"></div>
+        <div class="parallelogram-text">mbili</div>
+      </div>
+    </div>
+  </div>
+  <div class="gallery-container">
+    <div class="column left-column">
+      <div class="option-container" onclick="window.location.href='mbili.html'">
+        <h1 class="option-shade-1">picha</h1> 
+        <h1 class="option-text">photos</h1> 
+      </div>
+      <div class="triangle-container-2" id="downloadToggle">
+        <div class="triangle-down"></div>
+        <div class="triangle-text-about">download</div>
+      </div>
+      <div class="download-option-circle" id="downloadAyomOption">
+        <div class="download-option-text">ayom</div>
+      </div>
+
+      <div class="download-option-circle" id="downloadKyraOption">
+        <div class="download-option-text">kyra</div>
+      </div>
+      <div class="download-option-container" id="downloadAllOption">
+        <div class="download-option"></div>
+        <div class="download-option-text">download all?</div>
+      </div>
+      <div class="download-option-container" id="startDownloadOption">
+        <div class="download-option"></div>
+        <div class="download-option-text-2">start download.</div>
+      </div>
+    </div>
+    <div class="column right-column">
+      <div class="rectangle">
+        <div class="scrollable-content">
+            <div class="image-column">
+              <a href="images/mbili/untitled-38.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcset="
+                      images/mbili/webp-400/untitled-38.webp 400w,
+                      images/mbili/webp-800/untitled-38.webp 800w,
+                      images/mbili/webp-1200/untitled-38.webp 1200w,
+                      images/mbili/webp-1600/untitled-38.webp 1600w
+                    "
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  >
+                  <img
+                    src="images/mbili/untitled-38.jpg"
+                    alt="Image 38"
+                    class="image-item"
+                    loading="lazy"
+                  >
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled.webp 400w,
+                    images/mbili/ayom/webp-800/untitled.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled.jpg" alt="Image 1" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-4.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-4.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-4.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-4.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-4.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-4.jpg" alt="Image 4" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-7.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-7.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-7.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-7.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-7.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-7.jpg" alt="Image 7" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-10.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-10.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-10.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-10.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-10.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-10.jpg" alt="Image 10" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-13.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-13.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-13.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-13.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-13.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-13.jpg" alt="Image 13" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-16.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-16.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-16.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-16.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-16.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-16.jpg" alt="Image 16" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-19.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-19.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-19.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-19.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-19.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-19.jpg" alt="Image 19" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-22.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-22.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-22.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-22.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-22.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-22.jpg" alt="Image 22" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/ayom/untitled-45.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/ayom/webp-400/untitled-45.webp 400w,
+                    images/mbili/ayom/webp-800/untitled-45.webp 800w,
+                    images/mbili/ayom/webp-1200/untitled-45.webp 1200w,
+                    images/mbili/ayom/webp-1600/untitled-45.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/ayom/untitled-45.jpg" alt="Image 25" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/kyra/untitled-26.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/kyra/webp-400/untitled-26.webp 400w,
+                    images/mbili/kyra/webp-800/untitled-26.webp 800w,
+                    images/mbili/kyra/webp-1200/untitled-26.webp 1200w,
+                    images/mbili/kyra/webp-1600/untitled-26.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/kyra/untitled-26.jpg" alt="Image 28" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/kyra/untitled-29.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/kyra/webp-400/untitled-29.webp 400w,
+                    images/mbili/kyra/webp-800/untitled-29.webp 800w,
+                    images/mbili/kyra/webp-1200/untitled-29.webp 1200w,
+                    images/mbili/kyra/webp-1600/untitled-29.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/kyra/untitled-29.jpg" alt="Image 31" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/kyra/untitled-32.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/kyra/webp-400/untitled-32.webp 400w,
+                    images/mbili/kyra/webp-800/untitled-32.webp 800w,
+                    images/mbili/kyra/webp-1200/untitled-32.webp 1200w,
+                    images/mbili/kyra/webp-1600/untitled-32.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/kyra/untitled-32.jpg" alt="Image 34" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/kyra/untitled-35.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/kyra/webp-400/untitled-35.webp 400w,
+                    images/mbili/kyra/webp-800/untitled-35.webp 800w,
+                    images/mbili/kyra/webp-1200/untitled-35.webp 1200w,
+                    images/mbili/kyra/webp-1600/untitled-35.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/kyra/untitled-35.jpg" alt="Image 37" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/kyra/untitled-48.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/kyra/webp-400/untitled-48.webp 400w,
+                    images/mbili/kyra/webp-800/untitled-48.webp 800w,
+                    images/mbili/kyra/webp-1200/untitled-48.webp 1200w,
+                    images/mbili/kyra/webp-1600/untitled-48.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/kyra/untitled-48.jpg" alt="Image 40" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+              <a href="images/mbili/kyra/untitled-51.jpg" download target="_blank" class="image-link">
+                <picture>
+                  <source type="image/webp" srcset="
+                    images/mbili/kyra/webp-400/untitled-51.webp 400w,
+                    images/mbili/kyra/webp-800/untitled-51.webp 800w,
+                    images/mbili/kyra/webp-1200/untitled-51.webp 1200w,
+                    images/mbili/kyra/webp-1600/untitled-51.webp 1600w
+                  " sizes="(max-width: 768px) 100vw, 33vw">
+                  <img src="images/mbili/kyra/untitled-51.jpg" alt="Image 43" class="image-item" loading="lazy">
+                </picture>
+              </a>
+
+
+          </div>
+          <div class="image-column">
+            <a href="images/mbili/untitled-39.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    images/mbili/webp-400/untitled-39.webp 400w,
+                    images/mbili/webp-800/untitled-39.webp 800w,
+                    images/mbili/webp-1200/untitled-39.webp 1200w,
+                    images/mbili/webp-1600/untitled-39.webp 1600w
+                  "
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                >
+                <img
+                  src="images/mbili/untitled-39.jpg"
+                  alt="Image 39"
+                  class="image-item"
+                  loading="lazy"
+                >
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-2.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-2.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-2.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-2.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-2.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-2.jpg" alt="Image 2" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-5.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-5.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-5.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-5.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-5.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-5.jpg" alt="Image 5" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-8.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-8.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-8.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-8.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-8.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-8.jpg" alt="Image 8" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-11.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-11.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-11.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-11.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-11.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-11.jpg" alt="Image 11" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-14.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-14.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-14.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-14.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-14.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-14.jpg" alt="Image 14" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-17.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-17.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-17.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-17.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-17.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-17.jpg" alt="Image 17" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-20.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-20.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-20.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-20.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-20.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-20.jpg" alt="Image 20" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-23.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-23.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-23.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-23.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-23.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-23.jpg" alt="Image 23" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-46.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-46.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-46.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-46.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-46.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-46.jpg" alt="Image 26" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-27.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-27.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-27.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-27.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-27.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-27.jpg" alt="Image 29" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-30.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-30.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-30.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-30.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-30.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-30.jpg" alt="Image 32" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-33.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-33.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-33.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-33.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-33.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-33.jpg" alt="Image 35" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-36.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-36.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-36.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-36.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-36.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-36.jpg" alt="Image 38" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-49.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-49.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-49.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-49.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-49.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-49.jpg" alt="Image 41" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-52.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-52.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-52.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-52.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-52.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-52.jpg" alt="Image 44" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            
+
+              
+          </div>
+          <div class="image-column">
+             <a href="images/mbili/untitled-40.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    images/mbili/webp-400/untitled-40.webp 400w,
+                    images/mbili/webp-800/untitled-40.webp 800w,
+                    images/mbili/webp-1200/untitled-40.webp 1200w,
+                    images/mbili/webp-1600/untitled-40.webp 1600w
+                  "
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                >
+                <img
+                  src="images/mbili/untitled-40.jpg"
+                  alt="Image 40"
+                  class="image-item"
+                  loading="lazy"
+                >
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-3.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-3.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-3.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-3.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-3.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-3.jpg" alt="Image 3" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-6.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-6.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-6.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-6.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-6.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-6.jpg" alt="Image 6" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-9.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-9.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-9.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-9.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-9.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-9.jpg" alt="Image 9" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-12.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-12.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-12.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-12.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-12.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-12.jpg" alt="Image 12" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-15.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-15.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-15.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-15.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-15.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-15.jpg" alt="Image 15" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-18.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-18.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-18.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-18.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-18.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-18.jpg" alt="Image 18" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-21.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-21.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-21.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-21.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-21.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-21.jpg" alt="Image 21" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/ayom/untitled-44.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/ayom/webp-400/untitled-44.webp 400w,
+                  images/mbili/ayom/webp-800/untitled-44.webp 800w,
+                  images/mbili/ayom/webp-1200/untitled-44.webp 1200w,
+                  images/mbili/ayom/webp-1600/untitled-44.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/ayom/untitled-44.jpg" alt="Image 24" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-28.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-28.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-28.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-28.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-28.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-28.jpg" alt="Image 30" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-31.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-31.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-31.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-31.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-31.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-31.jpg" alt="Image 33" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-34.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-34.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-34.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-34.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-34.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-34.jpg" alt="Image 36" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-37.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-37.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-37.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-37.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-37.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-37.jpg" alt="Image 39" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-50.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-50.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-50.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-50.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-50.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-50.jpg" alt="Image 42" class="image-item" loading="lazy">
+              </picture>
+            </a>
+
+            <a href="images/mbili/kyra/untitled-53.jpg" download target="_blank" class="image-link">
+              <picture>
+                <source type="image/webp" srcset="
+                  images/mbili/kyra/webp-400/untitled-53.webp 400w,
+                  images/mbili/kyra/webp-800/untitled-53.webp 800w,
+                  images/mbili/kyra/webp-1200/untitled-53.webp 1200w,
+                  images/mbili/kyra/webp-1600/untitled-53.webp 1600w
+                " sizes="(max-width: 768px) 100vw, 33vw">
+                <img src="images/mbili/kyra/untitled-53.jpg" alt="Image 45" class="image-item" loading="lazy">
+              </picture>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="downloadModal" class="modal-overlay" style="display:none;">
+    <div class="modal modal-box">
+        <div class="modal-header">
+            <h2 class="modal-title">before downloading...</h2>
+            <button type="button" id="dlCancel" class="btn btn-close" aria-label="close modal"></button>
+        </div>
+
+        <form id="downloadForm" novalidate>
+        <label class="modal-label">
+            enter your name. <span aria-hidden="true" style="opacity:.7">*</span>
+            <input id="dlName" class="modal-input" type="text" required autocomplete="name" />
+        </label>
+
+        <label class="modal-label">
+            enter your email.
+            <input id="dlEmail" class="modal-input" type="email" inputmode="email" autocomplete="email" />
+        </label>
+
+        <label class="modal-label">
+            or enter your phone number.
+            <input id="dlPhone" class="modal-input" type="tel" inputmode="tel" autocomplete="tel"/>
+        </label>
+
+        <div id="dlError" class="modal-error" role="alert" style="display:none;"></div>
+
+        <div class="modal-actions">
+            <button type="submit" id="dlConfirm" class="btn2 btn-primary">submit.</button>
+        </div>
+        </form>
+    </div>
+  </div>
+  <div id="progressModal" class="modal-overlay" style="display:none;">
+    <div class="modal modal-box progress-box">
+        <div class="progress-content">
+        <img src="images/user/run2.gif" alt="" class="progress-img" />
+        <p id="progressText" class="progress-text">running</p>
+        </div>
+    </div>
+  </div>
+  <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
+
+  <div id="userLightbox" class="suku-lightbox-overlay">
+    <button class="suku-lightbox-arrow suku-lightbox-prev" aria-label="Previous image">&#10094;</button>
+    <img class="suku-lightbox-image" src="" alt="">
+    <button class="suku-lightbox-arrow suku-lightbox-next" aria-label="Next image">&#10095;</button>
+  </div>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+    import {
+    getFirestore, doc, setDoc, updateDoc, increment, serverTimestamp,
+    collection, addDoc
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+
+    // Your web app's Firebase configuration
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyAPHalnYFfFkCJspSeWNytSngnpEWC9lNk",
+
+        authDomain: "nyamachoma-57d58.firebaseapp.com",
+
+        projectId: "nyamachoma-57d58",
+
+        storageBucket: "nyamachoma-57d58.firebasestorage.app",
+
+        messagingSenderId: "1090224589648",
+
+        appId: "1:1090224589648:web:c8a08e362ea132a7e6ba55",
+
+        measurementId: "G-N7DGBF6Q79"
+
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    const SESSION_KEY = 'nyamachoma_dl_user';
+
+    function getSessionUser() {
+    try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null'); }
+    catch { return null; }
+    }
+    function setSessionUser(user) {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    }
+    function hasSessionUser() { return !!getSessionUser(); }
+
+    function imageIdFromUrl(url) {
+    try {
+        const u = new URL(url, window.location.href);
+        return u.pathname.replace(/\//g,'__'); // safe doc id
+    } catch {
+        return url.replace(/\//g,'__');
+    }
+    }
+
+    async function recordPhotoClick(url) {
+    const id = imageIdFromUrl(url);
+    const ref = doc(db, 'photoClicks-mbili', id);
+    try {
+        await setDoc(ref, { url, count: increment(1), updatedAt: serverTimestamp() }, { merge: true });
+    } catch (e) { /* non-blocking */ }
+    }
+
+    async function logDownload({ mode, urls, user }) {
+    try {
+        await addDoc(collection(db, 'downloads-mbili'), {
+        mode, 
+        count: urls.length,
+        filenames: urls.map(filenameFromUrl),
+        user,
+        createdAt: serverTimestamp()
+        });
+    } catch (e) { /* non-blocking */ }
+    }
+
+    function playAndNavigate(url) {
+    const audio = document.getElementById('menuClickAudio');
+    audio.currentTime = 0;
+    audio.play();
+    setTimeout(() => {
+        window.location.href = url;
+    }, 180);
+    }
+
+    function playClick() {
+    const audio = document.getElementById('menuClickAudio');
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+    }
+
+
+    document.querySelector('.option-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('mbili.html');
+    };
+
+    document.querySelector('.title-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('index.html');
+    };
+
+    async function blobFromUrl(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+    return await res.blob();
+    }
+
+    function filenameFromUrl(url) {
+    try {
+        const u = new URL(url, window.location.href);
+        const name = u.pathname.split('/').pop();
+        return name || 'image';
+    } catch {
+        return url.split('/').pop() || 'image';
+    }
+    }
+
+    async function zipAndDownload(urls, zipName = 'photos.zip') {
+    const zip = new window.JSZip();
+    const folder = zip.folder('photos');
+
+    const blobs = await Promise.all(
+        urls.map(async (u) => {
+        const blob = await blobFromUrl(u);
+        return { name: filenameFromUrl(u), blob };
+        })
+    );
+
+    blobs.forEach(({ name, blob }) => {
+        folder.file(name, blob);
+    });
+
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(zipBlob);
+    a.download = zipName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+
+    async function trackPageView({ oncePerSession = false } = {}) {
+    const pagePath = window.location.pathname || '/';
+    const pageKey  = pagePath.replace(/\//g, '__');
+    const sessionFlag = `pv:${pagePath}`;
+
+    if (oncePerSession && sessionStorage.getItem(sessionFlag)) return;
+
+    try {
+        await setDoc(
+        doc(db, 'pageViews', pageKey),
+        {
+            path: pagePath,
+            count: increment(1),
+            updatedAt: serverTimestamp(),
+            referrer: document.referrer || null
+        },
+        { merge: true }
+        );
+        if (oncePerSession) sessionStorage.setItem(sessionFlag, '1');
+    } catch (e) {
+        console.warn('page view log failed:', e);
+    }
+    }
+
+    trackPageView({ oncePerSession: false });
+
+    
+
+    const rectangle = document.querySelector('.rectangle');
+    const columnEls = Array.from(document.querySelectorAll('.image-column'));
+    const columnLinks = columnEls.map(col =>
+    Array.from(col.querySelectorAll('.image-link'))
+    );
+
+    const maxRows = Math.max(...columnLinks.map(col => col.length));
+
+    const imageLinks = [];
+    for (let row = 0; row < maxRows; row++) {
+    for (let c = 0; c < columnLinks.length; c++) {
+        const link = columnLinks[c][row];
+        if (link) imageLinks.push(link);
+    }
+    }
+
+    function isAyomUrl(url) {
+      return /\/images\/mbili\/ayom\//.test(url);
+    }
+
+    function isKyraUrl(url) {
+      return /\/images\/mbili\/kyra\//.test(url);
+    }
+
+    // "root mbili" means: /images/mbili/<filename> (no extra folder)
+    function isRootMbiliUrl(url) {
+      try {
+        const u = new URL(url, window.location.href);
+        const parts = u.pathname.split('/').filter(Boolean); 
+        // e.g. ["images","mbili","untitled-38.jpg"] => root
+        return parts.length === 3 && parts[0] === 'images' && parts[1] === 'mbili';
+      } catch {
+        // fallback if URL parsing fails
+        return /\/images\/mbili\/[^/]+$/.test(url);
+      }
+    }
+
+    function getAllImageUrls() {
+      return imageLinks
+        .map(a => a.dataset.href || a.getAttribute('href'))
+        .filter(Boolean);
+    }
+
+    function getAyomPlusRootUrls() {
+      const all = getAllImageUrls();
+      return all.filter(u => isAyomUrl(u) || isRootMbiliUrl(u));
+    }
+
+    function getKyraPlusRootUrls() {
+      const all = getAllImageUrls();
+      return all.filter(u => isKyraUrl(u) || isRootMbiliUrl(u));
+    }
+
+
+
+    const toggleDownload = document.getElementById('downloadToggle');
+    const downloadAllBtn = document.getElementById('downloadAllOption');
+    const startDownloadBtn = document.getElementById('startDownloadOption');
+    const downloadModal = document.getElementById('downloadModal');
+    const downloadForm  = document.getElementById('downloadForm');
+    const dlName  = document.getElementById('dlName');
+    const dlEmail = document.getElementById('dlEmail');
+    const dlPhone = document.getElementById('dlPhone');
+    const dlError = document.getElementById('dlError');
+    const dlCancel = document.getElementById('dlCancel');
+    const dlConfirm = document.getElementById('dlConfirm');
+    const progressModal = document.getElementById('progressModal');
+    const progressText  = document.getElementById('progressText');
+    
+    const downloadAyomBtn = document.getElementById('downloadAyomOption');
+    const downloadKyraBtn = document.getElementById('downloadKyraOption');
+
+
+        // ---------- LIGHTBOX FOR USER GALLERY ----------
+
+    const userLightbox = document.getElementById('userLightbox');
+    const userLightboxImg = userLightbox.querySelector('.suku-lightbox-image');
+    const userPrevBtn = userLightbox.querySelector('.suku-lightbox-prev');
+    const userNextBtn = userLightbox.querySelector('.suku-lightbox-next');
+
+    let currentIndex = 0;
+
+    function showLightboxImage(index) {
+      if (!imageLinks.length) return;
+      currentIndex = index;
+
+      const linkEl = imageLinks[currentIndex];
+      const imgEl  = linkEl.querySelector('img');
+
+      if (!imgEl) return;
+
+      // Use the full-size URL from href if present, else fallback to img.src
+      const src = linkEl.getAttribute('href') || imgEl.src;
+      const alt = imgEl.alt || '';
+
+      userLightboxImg.src = src;
+      userLightboxImg.alt = alt;
+
+      // Track photoclick for the image currently being viewed in the lightbox
+      recordPhotoClick(src);
+      logEvent(analytics, 'photo_click', {
+        image_id: filenameFromUrl(src)
+      });
+    }
+
+    function openUserLightbox(index) {
+      showLightboxImage(index);
+      userLightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeUserLightbox() {
+      userLightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function showUserNext(direction) {
+      if (!imageLinks.length) return;
+      const total = imageLinks.length;
+      currentIndex = (currentIndex + direction + total) % total;
+      showLightboxImage(currentIndex);
+    }
+
+    let dotsInterval = null;
+    let progressMinUntil = 0;
+
+    function showProgress() {
+    let dots = 0;
+    progressText.textContent = 'running';
+    progressModal.style.display = 'flex';
+    document.body.classList.add('modal-open');
+
+    progressMinUntil = Date.now() + (4 * 275 * 2);
+
+    dotsInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        progressText.textContent = 'running' + '.'.repeat(dots);
+    }, 275);
+    }
+
+    function hideProgress() {
+    return new Promise((resolve) => {
+        const remaining = Math.max(0, progressMinUntil - Date.now());
+        setTimeout(() => {
+        if (dotsInterval) clearInterval(dotsInterval);
+        dotsInterval = null;
+        progressModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        resolve();
+        }, remaining);
+    });
+    }
+    function waitForMinCycles() {
+    return new Promise((resolve) => {
+        const remaining = Math.max(0, progressMinUntil - Date.now());
+        setTimeout(resolve, remaining);
+    });
+    }
+
+    let pendingDownload = null;
+
+    function openDownloadModal(urls, mode) {
+    pendingDownload = { mode, urls };
+    dlError.style.display = 'none';
+    dlError.textContent = '';
+    downloadModal.style.display = 'flex';
+    document.body.classList.add('modal-open');
+    playClick();
+    setTimeout(() => dlName.focus(), 0);
+    }
+    function closeDownloadModal() {
+    downloadModal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    pendingDownload = null;
+    }
+
+    function isValidEmail(v) {
+    if (!v) return false;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+    }
+    function isValidPhone(v) {
+    if (!v) return false;
+    const digits = (v.match(/\d/g) || []).length;
+    return digits >= 7; 
+    }
+
+    downloadAyomBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+
+      const urls = getAyomPlusRootUrls();
+      if (!urls.length) return;
+
+      if (hasSessionUser()) {
+        startDownloadFlow(urls, 'ayom').finally(exitDownloadMode);
+      } else {
+        openDownloadModal(urls, 'ayom');
+      }
+    });
+
+    downloadKyraBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+
+      const urls = getKyraPlusRootUrls();
+      if (!urls.length) return;
+
+      if (hasSessionUser()) {
+        startDownloadFlow(urls, 'kyra').finally(exitDownloadMode);
+      } else {
+        openDownloadModal(urls, 'kyra');
+      }
+    });
+
+
+    dlCancel.addEventListener('click', () => {
+    playClick();
+    closeDownloadModal();
+    });
+
+    downloadModal.addEventListener('click', (e) => {
+    if (e.target === downloadModal) {
+        playClick();
+        closeDownloadModal();
+    }
+    });
+
+    downloadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    playClick();
+
+    const name  = dlName.value.trim();
+    const email = dlEmail.value.trim();
+    const phone = dlPhone.value.trim();
+
+    if (!name) {
+        dlError.textContent = 'please enter your name.';
+        dlError.style.display = 'block';
+        dlName.focus();
+        return;
+    }
+    if (!(isValidEmail(email) || isValidPhone(phone))) {
+        dlError.textContent = 'enter a valid email or phone number.';
+        dlError.style.display = 'block';
+        (email ? dlEmail : dlPhone).focus();
+        return;
+    }
+
+    dlConfirm.disabled = true;
+
+    try {
+        if (!pendingDownload) return;
+        const { mode, urls } = pendingDownload;
+
+        const user = { name, email: email || null, phone: phone || null };
+        setSessionUser(user);
+
+        closeDownloadModal();
+        await startDownloadFlow(urls, mode);
+        } catch (err) {
+        console.error(err);
+        alert('Sorry, something went wrong starting your download.');
+        } finally {
+        dlConfirm.disabled = false;
+        exitDownloadMode();
+        }
+    });
+
+
+
+    let downloadMode = false;
+    const selected = new Set();
+
+    function disableImageLinks() {
+        imageLinks.forEach(a => {
+        if (!a.dataset.href) a.dataset.href = a.getAttribute('href') || '';
+        a.removeAttribute('href');
+        });
+    }
+
+    function restoreImageLinks() {
+        imageLinks.forEach(a => {
+        if (a.dataset.href !== undefined) {
+            a.setAttribute('href', a.dataset.href);
+            delete a.dataset.href;
+        }
+        });
+    }
+        imageLinks.forEach((a, index) => {
+      a.addEventListener('click', (e) => {
+        // Always prevent the default "open in new tab"
+        e.preventDefault();
+
+        // If we are in download mode, let the rectangle listener handle selection
+        if (downloadMode) {
+          return;
+        }
+
+        // Normal mode: open lightbox with sound
+        playClick();
+        openUserLightbox(index);
+      });
+    });
+
+        // Lightbox arrows
+    userPrevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      showUserNext(-1);
+    });
+
+    userNextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      showUserNext(1);
+    });
+
+    // Click outside image closes lightbox
+    userLightbox.addEventListener('click', (e) => {
+      if (e.target === userLightbox) {
+        playClick();
+        closeUserLightbox();
+      }
+    });
+
+    // Keyboard: Esc to close, arrows to navigate (with sound)
+    document.addEventListener('keydown', (e) => {
+      if (!userLightbox.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
+        playClick();
+        closeUserLightbox();
+      } else if (e.key === 'ArrowRight') {
+        playClick();
+        showUserNext(1);
+      } else if (e.key === 'ArrowLeft') {
+        playClick();
+        showUserNext(-1);
+      }
+    });
+
+
+    async function startDownloadFlow(urls, mode) {
+        logEvent(analytics, 'download_start', { mode, count: urls.length });
+        showProgress();
+        await waitForMinCycles();
+        await hideProgress();
+
+        if (mode === 'selected') {
+            await new Promise((resolve) => batchDownload(urls, resolve));
+        } else {
+            await zipAndDownload(urls, 'nyamachoma.zip');
+        }
+
+        logEvent(analytics, 'download_complete', { mode, count: urls.length });
+
+        const user = getSessionUser();
+        logDownload({ mode, urls, user });
+    }
+
+
+    function enterDownloadMode() {
+        if (downloadMode) return;
+        downloadMode = true;
+        document.body.classList.add('download-mode');
+        disableImageLinks();
+    }
+
+    function clearSelections() {
+        selected.forEach(img => img.classList.remove('selected'));
+        selected.clear();
+    }
+
+    function exitDownloadMode() {
+        if (!downloadMode) return;
+        downloadMode = false;
+        document.body.classList.remove('download-mode');
+        restoreImageLinks();
+        clearSelections();
+    }
+
+    toggleDownload.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playClick();
+        enterDownloadMode();
+    });
+
+    rectangle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playClick();
+        if (!downloadMode) return;
+
+        const img = e.target.closest('.image-item');
+        if (img) {
+        e.preventDefault();
+        img.classList.toggle('selected');
+        if (img.classList.contains('selected')) {
+            selected.add(img);
+        } else {
+            selected.delete(img);
+        }
+        return;
+        }
+    });
+
+    startDownloadBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    playClick();
+    if (!downloadMode || selected.size === 0) return;
+
+    const urls = Array.from(selected).map(img => {
+        const a = img.closest('a');
+        const href = (a && (a.dataset.href || a.getAttribute('href'))) || img.getAttribute('src');
+        return href;
+    }).filter(Boolean);
+    if (!urls.length) return;
+
+    if (hasSessionUser()) {
+        startDownloadFlow(urls, 'selected').finally(exitDownloadMode);
+    } else {
+        openDownloadModal(urls, 'selected');
+    }
+    });
+
+
+    downloadAllBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    playClick();
+
+    const urls = imageLinks
+        .map(a => a.dataset.href || a.getAttribute('href'))
+        .filter(Boolean);
+    if (!urls.length) return;
+
+    if (hasSessionUser()) {
+        startDownloadFlow(urls, 'all').finally(exitDownloadMode);
+    } else {
+        openDownloadModal(urls, 'all');
+    }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!downloadMode) return;
+        if (document.body.classList.contains('modal-open')) return;
+
+        const clickedInsideRectangle = rectangle.contains(e.target);
+        const clickedControls = toggleDownload.contains(e.target) ||
+                                downloadAllBtn.contains(e.target) ||
+                                startDownloadBtn.contains(e.target) ||
+                                downloadAyomBtn.contains(e.target) ||
+                                downloadKyraBtn.contains(e.target);
+
+        if (!clickedInsideRectangle && !clickedControls) {
+        exitDownloadMode();
+        }
+    });
+
+    function batchDownload(urls, onDone) {
+        let i = 0;
+        const next = () => {
+        if (i >= urls.length) { onDone && onDone(); return; }
+        const url = urls[i++];
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = url.split('/').pop() || 'image';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(next, 160);
+        };
+        next();
+    }
+  </script>
+</body>
+</html>
