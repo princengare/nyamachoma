@@ -616,6 +616,7 @@
                 " sizes="(max-width: 768px) 100vw, 33vw">
                 <img src="images/mbili/kyra/untitled-53.jpg" alt="Image 45" class="image-item" loading="lazy">
               </picture>
+            </a>
 
                <a href="images/mbili/kyra/untitled-51.jpg" download target="_blank" class="image-link">
                 <picture>
@@ -878,13 +879,8 @@
     }
     }
 
-    function isAyomUrl(url) {
-      return /\/images\/mbili\/ayom\//.test(url);
-    }
-
-    function isKyraUrl(url) {
-      return /\/images\/mbili\/kyra\//.test(url);
-    }
+    function isAyomUrl(url) { return /(?:^|\/)images\/mbili\/ayom\//.test(url); }
+    function isKyraUrl(url) { return /(?:^|\/)images\/mbili\/kyra\//.test(url); }
 
     // "root mbili" means: /images/mbili/<filename> (no extra folder)
     function isRootMbiliUrl(url) {
@@ -1219,7 +1215,7 @@
         logEvent(analytics, 'download_complete', { mode, count: urls.length });
 
         const user = getSessionUser();
-        logDownload({ mode, urls, user });
+        await logDownload({ mode, urls, user });
     }
 
 
