@@ -800,7 +800,7 @@
       if (!imgEl) return;
 
       // Use the full-size URL from href if present, else fallback to img.src
-      const src = linkEl.getAttribute('href') || imgEl.src;
+      const src = linkEl.dataset.href || linkEl.getAttribute('href') || imgEl.src;
       const alt = imgEl.alt || '';
 
       userLightboxImg.src = src;
