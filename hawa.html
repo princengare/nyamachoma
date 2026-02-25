@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>melina</title>
+  <title>hawa</title>
   <link rel="stylesheet" href="styles/styles-user.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -21,17 +21,17 @@
     <div class="header-options">
       <div class="triangle-container">
         <div class="parallelogram"></div>
-        <div class="parallelogram-text">melina</div>
+        <div class="parallelogram-text">hawa</div>
       </div>
     </div>
   </div>
   <div class="gallery-container">
     <div class="column left-column">
-      <div class="option-container" onclick="window.location.href='melina.html'">
+      <div class="option-container" onclick="window.location.href='hawa.html'">
         <h1 class="option-shade-1">picha</h1> 
         <h1 class="option-text">photos</h1> 
       </div>
-      <div class="option-container-2" onclick="window.location.href='melina-films.html'">
+      <div class="option-container-2" onclick="window.location.href='hawa-films.html'">
         <h1 class="option-shade-1">filamu</h1> 
         <h1 class="option-text">films</h1>
       </div>
@@ -51,14 +51,19 @@
     <div class="column right-column">
       <div class="rectangle">
         <div class="scrollable-content">
-            <div class="film-column">
-                <!-- <video class="film-item" controls preload="none"
-                    poster="channels/melina/thumbs/punkrocky.webp">
-                    <source src="channels/melina/punkrocky.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video> -->
+           <div class="image-column">
+            
+            </div>
+
+            <div class="image-column">
+            
+            </div>
+
+            <div class="image-column">
+
             </div>
         </div>
+      </div>
     </div>
     </div>
     <div id="downloadModal" class="modal-overlay" style="display:none;">
@@ -95,12 +100,19 @@
   <div id="progressModal" class="modal-overlay" style="display:none;">
     <div class="modal modal-box progress-box">
         <div class="progress-content">
-        <img src="images/user/run2.png" alt="" class="progress-img" />
+        <img src="images/user/run2.gif" alt="" class="progress-img" />
         <p id="progressText" class="progress-text">running</p>
         </div>
     </div>
   </div>
   <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
+
+  <div id="userLightbox" class="suku-lightbox-overlay">
+    <button class="suku-lightbox-arrow suku-lightbox-prev" aria-label="Previous image">&#10094;</button>
+    <img class="suku-lightbox-image" src="" alt="">
+    <button class="suku-lightbox-arrow suku-lightbox-next" aria-label="Next image">&#10095;</button>
+  </div>
+
   <script type="module">
     // Import the functions you need from the SDKs you need
 
@@ -166,7 +178,7 @@
 
     async function recordPhotoClick(url) {
     const id = imageIdFromUrl(url);
-    const ref = doc(db, 'photoClicks-melina', id);
+    const ref = doc(db, 'photoClicks-hawa', id);
     try {
         await setDoc(ref, { url, count: increment(1), updatedAt: serverTimestamp() }, { merge: true });
     } catch (e) { /* non-blocking */ }
@@ -174,21 +186,13 @@
 
     async function logDownload({ mode, urls, user }) {
     try {
-        await addDoc(collection(db, 'downloads-melina'), {
+        await addDoc(collection(db, 'downloads-hawa'), {
         mode, 
         count: urls.length,
         filenames: urls.map(filenameFromUrl),
         user,
         createdAt: serverTimestamp()
         });
-    } catch (e) { /* non-blocking */ }
-    }
-
-    async function recordBoxOffice(url) {
-    const id = imageIdFromUrl(url);
-    const ref = doc(db, 'boxOffice-melina', id);
-    try {
-        await setDoc(ref, { url, views: increment(1), updatedAt: serverTimestamp() }, { merge: true });
     } catch (e) { /* non-blocking */ }
     }
 
@@ -211,12 +215,7 @@
 
     document.querySelector('.option-container').onclick = function(e) {
     e.stopPropagation();
-    playAndNavigate('melina.html');
-    };
-
-    document.querySelector('.option-container-2').onclick = (e) => {
-      e.stopPropagation();
-      playAndNavigate('melina-films.html');
+    playAndNavigate('hawa.html');
     };
 
     document.querySelector('.title-container').onclick = function(e) {
@@ -265,10 +264,47 @@
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     }
 
-    
+    async function trackPageView({ oncePerSession = false } = {}) {
+    const pagePath = window.location.pathname || '/';
+    const pageKey  = pagePath.replace(/\//g, '__');
+    const sessionFlag = `pv:${pagePath}`;
+
+    if (oncePerSession && sessionStorage.getItem(sessionFlag)) return;
+
+    try {
+        await setDoc(
+        doc(db, 'pageViews', pageKey),
+        {
+            path: pagePath,
+            count: increment(1),
+            updatedAt: serverTimestamp(),
+            referrer: document.referrer || null
+        },
+        { merge: true }
+        );
+        if (oncePerSession) sessionStorage.setItem(sessionFlag, '1');
+    } catch (e) {
+        console.warn('page view log failed:', e);
+    }
+    }
+
+    trackPageView({ oncePerSession: false });
 
     const rectangle = document.querySelector('.rectangle');
-    const imageLinks = Array.from(document.querySelectorAll('.image-link'));
+    const columnEls = Array.from(document.querySelectorAll('.image-column'));
+    const columnLinks = columnEls.map(col =>
+    Array.from(col.querySelectorAll('.image-link'))
+    );
+
+    const maxRows = Math.max(...columnLinks.map(col => col.length));
+
+    const imageLinks = [];
+    for (let row = 0; row < maxRows; row++) {
+    for (let c = 0; c < columnLinks.length; c++) {
+        const link = columnLinks[c][row];
+        if (link) imageLinks.push(link);
+    }
+    }
     const toggleDownload = document.getElementById('downloadToggle');
     const downloadAllBtn = document.getElementById('downloadAllOption');
     const startDownloadBtn = document.getElementById('startDownloadOption');
@@ -282,11 +318,57 @@
     const dlConfirm = document.getElementById('dlConfirm');
     const progressModal = document.getElementById('progressModal');
     const progressText  = document.getElementById('progressText');
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const canShareFiles = () => !!(navigator.share && navigator.canShare);
-    const filmItems = Array.from(document.querySelectorAll('.film-item'));
 
-    const MAX_SHARE_FILES = 72;
+
+        // ---------- LIGHTBOX FOR USER GALLERY ----------
+
+    const userLightbox = document.getElementById('userLightbox');
+    const userLightboxImg = userLightbox.querySelector('.suku-lightbox-image');
+    const userPrevBtn = userLightbox.querySelector('.suku-lightbox-prev');
+    const userNextBtn = userLightbox.querySelector('.suku-lightbox-next');
+
+    let currentIndex = 0;
+
+    function showLightboxImage(index) {
+      if (!imageLinks.length) return;
+      currentIndex = index;
+
+      const linkEl = imageLinks[currentIndex];
+      const imgEl  = linkEl.querySelector('img');
+
+      if (!imgEl) return;
+
+      // Use the full-size URL from href if present, else fallback to img.src
+      const src = linkEl.dataset.href || linkEl.getAttribute('href') || imgEl.src;
+      const alt = imgEl.alt || '';
+
+      userLightboxImg.src = src;
+      userLightboxImg.alt = alt;
+
+      // Track photoclick for the image currently being viewed in the lightbox
+      recordPhotoClick(src);
+      logEvent(analytics, 'photo_click', {
+        image_id: filenameFromUrl(src)
+      });
+    }
+
+    function openUserLightbox(index) {
+      showLightboxImage(index);
+      userLightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeUserLightbox() {
+      userLightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function showUserNext(direction) {
+      if (!imageLinks.length) return;
+      const total = imageLinks.length;
+      currentIndex = (currentIndex + direction + total) % total;
+      showLightboxImage(currentIndex);
+    }
 
     let dotsInterval = null;
     let progressMinUntil = 0;
@@ -404,26 +486,6 @@
         }
     });
 
-    async function shareImagesViaWebShare(urls, title = 'nyamachoma') {
-    const files = [];
-    for (let i = 0; i < urls.length; i++) {
-        const u = urls[i];
-        const blob = await blobFromUrl(u);
-        const type = blob.type || 'image/jpeg';
-        const name = filenameFromUrl(u);
-        files.push(new File([blob], name, { type }));
-    }
-
-    if (!navigator.canShare || !navigator.canShare({ files })) {
-        throw new Error('Web Share with files not supported for these items');
-    }
-
-    await navigator.share({
-        files,
-        title,
-        text: `${files.length} photo${files.length === 1 ? '' : 's'}`
-    });
-    }
 
 
     let downloadMode = false;
@@ -444,78 +506,62 @@
         }
         });
     }
-    imageLinks.forEach(a => {
-    a.addEventListener('click', () => {
-        if (!downloadMode) {
-        const href = a.getAttribute('href');
-        recordPhotoClick(href);
-        logEvent(analytics, 'photo_click', {
-            image_id: filenameFromUrl(href) 
-        });
+        imageLinks.forEach((a, index) => {
+      a.addEventListener('click', (e) => {
+        // Always prevent the default "open in new tab"
+        e.preventDefault();
+
+        // If we are in download mode, let the rectangle listener handle selection
+        if (downloadMode) {
+          return;
         }
-    }, { capture: true });
+
+        // Normal mode: open lightbox with sound
+        playClick();
+        openUserLightbox(index);
+      });
     });
 
-    function videoUrlFromEl(videoEl) {
-    if (!videoEl) return null;
-    if (videoEl.currentSrc) return videoEl.currentSrc;
-    const s = videoEl.querySelector('source');
-    return s ? s.src : (videoEl.src || null);
-    }
-
-    filmItems.forEach(v => {
-    // intent: user clicked the video (GA only)
-    v.addEventListener('click', () => {
-        const u = videoUrlFromEl(v);
-        if (!u) return;
-        // don't touch Firestore here to avoid double-count
-        logEvent(analytics, 'film_click', { video_id: filenameFromUrl(u) });
-    }, { capture: true });
-
-    // view: first actual playback this session (Firestore + GA)
-    v.addEventListener('play', () => {
-        if (v.dataset.viewTracked) return;
-        v.dataset.viewTracked = '1';
-        const u = videoUrlFromEl(v);
-        if (!u) return;
-        recordBoxOffice(u); // <-- keep this one
-        logEvent(analytics, 'film_view', { video_id: filenameFromUrl(u) });
-    });
+        // Lightbox arrows
+    userPrevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      showUserNext(-1);
     });
 
-    function chunk(arr, size) {
-        const out = [];
-        for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-        return out;
-    }
+    userNextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClick();
+      showUserNext(1);
+    });
+
+    // Click outside image closes lightbox
+    userLightbox.addEventListener('click', (e) => {
+      if (e.target === userLightbox) {
+        playClick();
+        closeUserLightbox();
+      }
+    });
+
+    // Keyboard: Esc to close, arrows to navigate (with sound)
+    document.addEventListener('keydown', (e) => {
+      if (!userLightbox.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
+        playClick();
+        closeUserLightbox();
+      } else if (e.key === 'ArrowRight') {
+        playClick();
+        showUserNext(1);
+      } else if (e.key === 'ArrowLeft') {
+        playClick();
+        showUserNext(-1);
+      }
+    });
+
 
     async function startDownloadFlow(urls, mode) {
         logEvent(analytics, 'download_start', { mode, count: urls.length });
-
-        if (isMobile && canShareFiles()) {
-            try {
-            if (urls.length > MAX_SHARE_FILES) {
-                const batches = chunk(urls, MAX_SHARE_FILES);
-                for (let i = 0; i < batches.length; i++) {
-                const batch = batches[i];
-                await shareImagesViaWebShare(
-                    batch,
-                    batches.length > 1 ? `nyamachoma (${i + 1}/${batches.length})` : 'nyamachoma'
-                );
-                }
-            } else {
-                await shareImagesViaWebShare(urls, 'nyamachoma');
-            }
-
-            logEvent(analytics, 'download_complete', { mode, count: urls.length });
-            const user = getSessionUser && getSessionUser();
-            if (user) logDownload({ mode, urls, user });
-            return;
-            } catch (e) {
-            console.warn('Web Share failed, falling back to non-share path:', e);
-            }
-        }
-
         showProgress();
         await waitForMinCycles();
         await hideProgress();
@@ -527,11 +573,10 @@
         }
 
         logEvent(analytics, 'download_complete', { mode, count: urls.length });
-        const user = getSessionUser && getSessionUser();
-        if (user) logDownload({ mode, urls, user });
+
+        const user = getSessionUser();
+        logDownload({ mode, urls, user });
     }
-
-
 
 
     function enterDownloadMode() {
@@ -561,37 +606,33 @@
     });
 
     rectangle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    playClick();
-    if (!downloadMode) return;
+        e.stopPropagation();
+        playClick();
+        if (!downloadMode) return;
 
-    const selectable = e.target.closest('.image-item, .film-item');
-    if (selectable) {
+        const img = e.target.closest('.image-item');
+        if (img) {
         e.preventDefault();
-        selectable.classList.toggle('selected');
-        if (selectable.classList.contains('selected')) {
-        selected.add(selectable);
+        img.classList.toggle('selected');
+        if (img.classList.contains('selected')) {
+            selected.add(img);
         } else {
-        selected.delete(selectable);
+            selected.delete(img);
         }
         return;
-    }
+        }
     });
-    
 
     startDownloadBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     playClick();
     if (!downloadMode || selected.size === 0) return;
 
-    const urls = Array.from(selected).map(el => {
-    if (el.classList.contains('film-item')) {
-        return videoUrlFromEl(el);
-    }
-    const a = el.closest('a');
-    return (a && (a.dataset.href || a.getAttribute('href'))) || el.getAttribute('src');
+    const urls = Array.from(selected).map(img => {
+        const a = img.closest('a');
+        const href = (a && (a.dataset.href || a.getAttribute('href'))) || img.getAttribute('src');
+        return href;
     }).filter(Boolean);
-
     if (!urls.length) return;
 
     if (hasSessionUser()) {
@@ -606,10 +647,9 @@
     e.stopPropagation();
     playClick();
 
-    const videoUrls = filmItems.map(v => videoUrlFromEl(v)).filter(Boolean);
-    const photoUrls = imageLinks.map(a => a.dataset.href || a.getAttribute('href')).filter(Boolean);
-    const urls = Array.from(new Set([...photoUrls, ...videoUrls])); // de-dupe
-
+    const urls = imageLinks
+        .map(a => a.dataset.href || a.getAttribute('href'))
+        .filter(Boolean);
     if (!urls.length) return;
 
     if (hasSessionUser()) {
@@ -648,28 +688,6 @@
         };
         next();
     }
-
-    (async function trackPageView() {
-    const pagePath = window.location.pathname || '/';
-    const pageKey  = pagePath.replace(/\//g, '__');
-
-    try {
-        await setDoc(
-        doc(db, 'pageViews', pageKey),
-        {
-            path: pagePath,
-            count: increment(1),
-            updatedAt: serverTimestamp(),
-            referrer: document.referrer || null,
-            ua: navigator.userAgent
-        },
-        { merge: true }
-        );
-    } catch (e) {
-        console.warn('page view log failed:', e);
-    }
-    })();
-
   </script>
 </body>
 </html>

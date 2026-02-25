@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>melina</title>
+  <title>haylee</title>
   <link rel="stylesheet" href="styles/styles-user.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -21,19 +21,15 @@
     <div class="header-options">
       <div class="triangle-container">
         <div class="parallelogram"></div>
-        <div class="parallelogram-text">melina</div>
+        <div class="parallelogram-text">haylee</div>
       </div>
     </div>
   </div>
   <div class="gallery-container">
     <div class="column left-column">
-      <div class="option-container" onclick="window.location.href='melina.html'">
+      <div class="option-container" onclick="window.location.href='haylee.html'">
         <h1 class="option-shade-1">picha</h1> 
         <h1 class="option-text">photos</h1> 
-      </div>
-      <div class="option-container-2" onclick="window.location.href='melina-films.html'">
-        <h1 class="option-shade-1">filamu</h1> 
-        <h1 class="option-text">films</h1>
       </div>
       <div class="triangle-container-2" id="downloadToggle">
         <div class="triangle-down"></div>
@@ -178,7 +174,7 @@
 
     async function recordPhotoClick(url) {
     const id = imageIdFromUrl(url);
-    const ref = doc(db, 'photoClicks-melina', id);
+    const ref = doc(db, 'photoClicks-haylee', id);
     try {
         await setDoc(ref, { url, count: increment(1), updatedAt: serverTimestamp() }, { merge: true });
     } catch (e) { /* non-blocking */ }
@@ -186,7 +182,7 @@
 
     async function logDownload({ mode, urls, user }) {
     try {
-        await addDoc(collection(db, 'downloads-melina'), {
+        await addDoc(collection(db, 'downloads-haylee'), {
         mode, 
         count: urls.length,
         filenames: urls.map(filenameFromUrl),
@@ -215,7 +211,7 @@
 
     document.querySelector('.option-container').onclick = function(e) {
     e.stopPropagation();
-    playAndNavigate('melina.html');
+    playAndNavigate('haylee.html');
     };
 
     document.querySelector('.title-container').onclick = function(e) {
