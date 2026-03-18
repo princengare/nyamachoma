@@ -50,6 +50,14 @@
     </div>
     </div>
   </div>
+  <div id="progressModal" class="modal-overlay" style="display:none;">
+    <div class="modal modal-box progress-box">
+      <div class="progress-content">
+        <img src="images/user/run2.gif" alt="" class="progress-img" />
+        <p id="progressText" class="progress-text">running</p>
+      </div>
+    </div>
+  </div>
   <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
 </body>
 <script type="module">
@@ -149,7 +157,40 @@ let currentYear = new Date().getFullYear();
 
 const stepContent = document.getElementById("stepContent");
 const stepProgressBar = document.getElementById("stepProgressBar");
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcUwP4JpayOUoexYj97B_aYagYhW0gMsGiSF5W8qGiLoSKU3HM_auYuyPy0FznmyU/exec";  
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcUwP4JpayOUoexYj97B_aYagYhW0gMsGiSF5W8qGiLoSKU3HM_auYuyPy0FznmyU/exec";
+const progressModal = document.getElementById("progressModal");
+const progressText = document.getElementById("progressText");
+
+let progressInterval = null;
+let progressMinUntil = 0;
+
+function showProgress(message = "running") {
+  let dots = 0;
+  progressText.textContent = message;
+  progressModal.style.display = "flex";
+  document.body.classList.add("modal-open");
+
+  progressMinUntil = Date.now() + 500;
+
+  if (progressInterval) clearInterval(progressInterval);
+  progressInterval = setInterval(() => {
+    dots = (dots + 1) % 4;
+    progressText.textContent = message + ".".repeat(dots);
+  }, 275);
+}
+
+function hideProgress() {
+  return new Promise((resolve) => {
+    const remaining = Math.max(0, progressMinUntil - Date.now());
+    setTimeout(() => {
+      if (progressInterval) clearInterval(progressInterval);
+      progressInterval = null;
+      progressModal.style.display = "none";
+      document.body.classList.remove("modal-open");
+      resolve();
+    }, remaining);
+  });
+}  
 
 const services = [
   {
@@ -200,7 +241,7 @@ async function renderStep() {
   if (currentStep === 0) renderNameStep();
   if (currentStep === 1) renderServiceStep();
   if (currentStep === 2) renderPricingStep();
-  if (currentStep === 3) renderCalendarStep();
+  if (currentStep === 3) await renderCalendarStep();
   if (currentStep === 4) renderContactStep();
   if (currentStep === 5) renderFinalStep();
   
@@ -396,9 +437,12 @@ function loadAvailability(year, month) {
 }
 
 async function renderCalendarStep() {
+  showProgress("loading calendar");
   try {
     await loadAvailability(currentYear, currentMonth + 1);
+    await hideProgress();
   } catch (err) {
+    await hideProgress();
     console.error("Availability load failed:", err);
     stepContent.innerHTML = `
       <div class="step-label">step iv</div>
@@ -515,29 +559,29 @@ async function renderCalendarStep() {
     </div>
   `;
 
-  document.getElementById("prevMonth").addEventListener("click", () => {
+  document.getElementById("prevMonth").addEventListener("click", async () => {
     currentMonth -= 1;
     if (currentMonth < 0) {
       currentMonth = 11;
       currentYear -= 1;
     }
-    renderCalendarStep();
+    await renderCalendarStep();
   });
 
-  document.getElementById("nextMonth").addEventListener("click", () => {
+  document.getElementById("nextMonth").addEventListener("click", async () => {
     currentMonth += 1;
     if (currentMonth > 11) {
       currentMonth = 0;
       currentYear += 1;
     }
-    renderCalendarStep();
+    await renderCalendarStep();
   });
 
   document.querySelectorAll(".calendar-day[data-date]").forEach(button => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       bookingData.selectedDate = button.dataset.date;
       bookingData.selectedTime = "";
-      renderCalendarStep();
+      await renderCalendarStep();
     });
   });
 
@@ -609,6 +653,7 @@ function renderContactStep() {
     bookingData.email = email;
 
     try {
+        showProgress("submitting request");
         await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
@@ -622,8 +667,10 @@ function renderContactStep() {
         })
         });
 
-        nextStep();
+        await hideProgress();
+        await nextStep();
     } catch (e) {
+        await hideProgress();
         console.error(e);
         alert("Something went wrong while submitting your request.");
     }
