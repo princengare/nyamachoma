@@ -15,7 +15,14 @@
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <img src="images/fork.png" alt="fork" class="fork-image">
+    <img
+      src="images/fork.webp"
+      alt="fork"
+      class="fork-image"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    >
     <div class="title-container" style="position: relative;">
        <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
        <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
@@ -31,7 +38,12 @@
         </div>
     </div>
     <div class="tv-image">
-        <img src="images/tvoff.png" alt="tv">
+        <img
+          src="images/tvoff.webp"
+          alt="tv"
+          loading="eager"
+          decoding="async"
+        >
         <video id="tv-video" autoplay muted playsinline class="tv-video">
             <source src="channels/channel1.mp4" type="video/mp4">
         </video>
@@ -57,33 +69,99 @@
              <br>
         </h1>
         <div class="promo-images">
-            <img src="images/promos/DSi XL Pricing.png" alt="DSi Pricing" class="promo-image">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPQfgwIxmIn9UpPBz8YtsGFQMazECLkgkFltZb1UzVp88ksA/viewform?usp=dialog" target="_blank" class="book-button">
-            book here ♥
+            <img
+              src="images/promos/DSi-800.webp"
+              srcset="
+                images/promos/DSi-400.webp 400w,
+                images/promos/DSi-800.webp 800w,
+                images/promos/DSi-1200.webp 1200w
+              "
+              sizes="(max-width: 600px) 90vw, (max-width: 1200px) 60vw, 800px"
+              alt="DSi Pricing"
+              class="promo-image"
+              loading="lazy"
+              decoding="async"
+            >
+            <a href="needvisuals.html" class="book-button">
+            need visuals?
             </a>
         </div>
     </div>
     <div class="promo-strip-wrap">
         <h2 class="promo-header">my <br>cams &gt;</h2>
         <div class="promo-strip">
+            <a class="promo-thumb-link" href="https://en.wikipedia.org/wiki/Nikon_F5" target="_blank" rel="noopener noreferrer" aria-label="Nikon F5 (Wikipedia)">
+                <img
+                  class="promo-thumb"
+                  src="images/cams/nikon-f5_front-Picsart-BackgroundRemover-300.webp"
+                  srcset="
+                    images/cams/nikon-f5_front-Picsart-BackgroundRemover-300.webp 300w,
+                    images/cams/nikon-f5_front-Picsart-BackgroundRemover-600.webp 600w
+                  "
+                  sizes="120px"
+                  alt="Nikon F5"
+                  loading="lazy"
+                  decoding="async"
+                >
+            </a>
             <a class="promo-thumb-link" href="https://en.wikipedia.org/wiki/Nikon_F4" target="_blank" rel="noopener noreferrer" aria-label="Nikon F4 (Wikipedia)">
-                <img class="promo-thumb" src="images/cams/3-KM8540-1-Picsart-BackgroundRemover.png" alt="Nikon F4" loading="lazy">
+                <img
+                  class="promo-thumb"
+                  src="images/cams/3-KM8540-1-Picsart-BackgroundRemover-300.webp"
+                  srcset="
+                    images/cams/3-KM8540-1-Picsart-BackgroundRemover-300.webp 300w,
+                    images/cams/3-KM8540-1-Picsart-BackgroundRemover-600.webp 600w
+                  "
+                  sizes="120px"
+                  alt="Nikon F4"
+                  loading="lazy"
+                  decoding="async"
+                >
             </a>
 
             <a class="promo-thumb-link" href="https://www.polaroid-passion.com/manuel/manuel-polaroid-SLR-680.pdf" target="_blank" rel="noopener noreferrer" aria-label="Polaroid SLR 680 manual (PDF)">
-                <img class="promo-thumb" src="images/cams/Polaroid_SLR_680_1-Picsart-BackgroundRemover.png" alt="Polaroid SLR 680" loading="lazy">
+                <img
+                  class="promo-thumb"
+                  src="images/cams/Polaroid_SLR_680_1-Picsart-BackgroundRemover-300.webp"
+                  srcset="
+                    images/cams/Polaroid_SLR_680_1-Picsart-BackgroundRemover-300.webp 300w,
+                    images/cams/Polaroid_SLR_680_1-Picsart-BackgroundRemover-600.webp 600w
+                  "
+                  sizes="120px"
+                  alt="Polaroid SLR 680"
+                  loading="lazy"
+                  decoding="async"
+                >
             </a>
 
             <a class="promo-thumb-link" href="https://www.manua.ls/olympus/infinity-zoom-105/manual" target="_blank" rel="noopener noreferrer" aria-label="Olympus Infinity Zoom 105 manual">
-                <img class="promo-thumb" src="images/cams/RC-VR-1153_1-Picsart-BackgroundRemover.png" alt="Olympus Infinity Zoom 105" loading="lazy">
+                <img
+                  class="promo-thumb"
+                  src="images/cams/RC-VR-1153_1-Picsart-BackgroundRemover-300.webp"
+                  srcset="
+                    images/cams/RC-VR-1153_1-Picsart-BackgroundRemover-300.webp 300w,
+                    images/cams/RC-VR-1153_1-Picsart-BackgroundRemover-600.webp 600w
+                  "
+                  sizes="120px"
+                  alt="Olympus Infinity Zoom 105"
+                  loading="lazy"
+                  decoding="async"
+                >
             </a>
 
             <a class="promo-thumb-link" href="https://www.grsv.com/downloads/brochures/Sony-HVR-Z1U-Brochure.pdf" target="_blank" rel="noopener noreferrer" aria-label="Sony HVR-Z1U brochure (PDF)">
-                <img class="promo-thumb" src="images/cams/Sony_HVRZ1U_HVR_Z1U_1_3_3_CCD_HDV_357486-Picsart-BackgroundRemover.png" alt="Sony HVR-Z1U" loading="lazy">
-            </a>
-
-            <a class="promo-thumb-link" href="https://global.canon/en/c-museum/product/dcc513.html" target="_blank" rel="noopener noreferrer" aria-label="Canon museum: DC C513">
-                <img class="promo-thumb" src="images/cams/x280PSSD450-Picsart-BackgroundRemover.png" alt="Canon DC C513" loading="lazy">
+                <img
+                  class="promo-thumb"
+                  src="images/cams/Sony_HVRZ1U_HVR_Z1U_1_3_3_CCD_HDV_357486-Picsart-BackgroundRemover-300.webp"
+                  srcset="
+                    images/cams/Sony_HVRZ1U_HVR_Z1U_1_3_3_CCD_HDV_357486-Picsart-BackgroundRemover-300.webp 300w,
+                    images/cams/Sony_HVRZ1U_HVR_Z1U_1_3_3_CCD_HDV_357486-Picsart-BackgroundRemover-600.webp 600w
+                  "
+                  sizes="120px"
+                  alt="Sony HVR-Z1U"
+                  loading="lazy"
+                  decoding="async"
+                >
             </a>
         </div>
     </div>
@@ -162,7 +240,7 @@
         
         playAudio();
         setTimeout(() => {
-            window.open(href, '_blank');
+            window.location.href = href;
         }, 180);
     });
     document.querySelectorAll('.promo-thumb-link').forEach(link => {

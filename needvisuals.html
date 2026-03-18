@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>nyamachoma</title>
+  <link rel="stylesheet" href="styles/styles-needvisuals.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+  <div class="header">
+    <div class="title-container" style="position: relative;" onclick="window.location.href='index.html'">
+        <h1 class="title" style="position: relative; z-index: 1;">nyama choma</h1> 
+        <div class="title-ellipse" style="position: absolute; z-index: 0;"></div>
+    </div>
+    <div class="header-options">
+      <div class="triangle-container" onclick="window.location.href='gallery.html'">
+        <div class="triangle-down"></div>
+        <div class="triangle-text-about">gallery</div>
+      </div>
+      <div class="triangle-container" onclick="window.location.href='about.html'">
+        <div class="triangle-up"></div>
+        <div class="triangle-text-about">about</div>
+      </div>
+    </div>
+  </div>
+  <div class="gallery-container">
+    <div class="column">
+      <div class="rectangle">
+        <div class="contact-content">
+          <!-- <div class="sukumawiki-text">
+            <div class="suku-line-1">
+                <span class="suku-italic">need visuals?</span>
+            </div>
+        </div> -->
+        <div class="booking-flow">
+            <div class="step-card">
+                <div class="step-progress">
+                <div class="step-progress-bar" id="stepProgressBar"></div>
+                </div>
+
+                <div id="stepContent"></div>
+            </div>
+            </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <audio id="menuClickAudio" src="sounds/menu-click.mp3"></audio>
+</body>
+<script type="module">
+  const audio = document.getElementById('menuClickAudio');
+    function playAndNavigate(url) {
+    audio.currentTime = 0;
+    audio.play();
+    setTimeout(() => {
+        window.location.href = url;
+    }, 180);
+    }
+
+    document.querySelectorAll('.triangle-container').forEach((container, index) => {
+    container.onclick = function(e) {
+        e.stopPropagation();
+        if (index === 0) {
+            playAndNavigate('gallery.html');
+        } else {
+            playAndNavigate('about.html');
+        }
+    };
+    });
+
+    document.querySelector('.title-container').onclick = function(e) {
+    e.stopPropagation();
+    playAndNavigate('index.html');
+    };
+
+    
+  document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const audio = document.getElementById('menuClickAudio');
+        audio.currentTime = 0;
+        audio.play();
+        
+        setTimeout(() => {
+            if (this.href.startsWith('mailto:')) {
+                window.location.href = this.href;
+            } else {
+                window.open(this.href, '_blank');
+            }
+        }, 180);
+        
+        e.preventDefault();
+    });
+  });
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+      apiKey: "AIzaSyAPHalnYFfFkCJspSeWNytSngnpEWC9lNk",
+      authDomain: "nyamachoma-57d58.firebaseapp.com",
+      projectId: "nyamachoma-57d58",
+      storageBucket: "nyamachoma-57d58.firebasestorage.app",
+      messagingSenderId: "1090224589648",
+      appId: "1:1090224589648:web:c8a08e362ea132a7e6ba55",
+      measurementId: "G-N7DGBF6Q79"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  (async function trackPageView() {
+      const pagePath = window.location.pathname || '/';
+      const pageKey  = pagePath.replace(/\//g, '__');
+      try {
+      await setDoc(
+          doc(db, 'pageViews', pageKey),
+          {
+          path: pagePath,
+          count: increment(1),
+          updatedAt: serverTimestamp(),
+          referrer: document.referrer || null,
+          ua: navigator.userAgent
+          },
+          { merge: true }
+      );
+      } catch (e) {
+      console.warn('page view log failed:', e);
+      }
+  })();
+
+  const bookingData = {
+  name: "",
+  services: [],
+  pricing: ["only regular rate"],
+  selectedDate: "",
+  selectedTime: "",
+  phone: "",
+  email: ""
+};
+
+let currentStep = 0;
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+
+const stepContent = document.getElementById("stepContent");
+const stepProgressBar = document.getElementById("stepProgressBar");
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcUwP4JpayOUoexYj97B_aYagYhW0gMsGiSF5W8qGiLoSKU3HM_auYuyPy0FznmyU/exec";  
+
+const services = [
+  {
+    id: "graduation photoshoot",
+    title: "graduation photoshoot",
+    desc: ""
+  },
+  {
+    id: "photography (general)",
+    title: "photography (general)",
+    desc: "portraits, creative shoots, editorial, lifestyle, birthdays, events, engagements"
+  },
+  {
+    id: "videography (general)",
+    title: "videography (general)",
+    desc: "social media reels, bts, event coverage, creative videos"
+  }
+];
+
+const pricingOptions = [
+  {
+    id: "only regular rate",
+    title: "only regular rate",
+    desc: "$100 per hour (includes editing & free location shoots within the greater LA area)"
+  },
+  {
+    id: "add-on polaroid",
+    title: "add-on polaroid",
+    desc: "$25 for 8 Polaroids"
+  },
+  {
+    id: "add-on social media reel",
+    title: "add-on social media reel",
+    desc: "$30 for camcorder social media reel"
+  }
+];
+
+let availableTimesByDate = {};
+
+const totalSteps = 5;
+
+function updateProgress() {
+  const percent = ((currentStep + 1) / totalSteps) * 100;
+  stepProgressBar.style.width = `${percent}%`;
+}
+
+async function renderStep() {
+  if (currentStep === 0) renderNameStep();
+  if (currentStep === 1) renderServiceStep();
+  if (currentStep === 2) renderPricingStep();
+  if (currentStep === 3) renderCalendarStep();
+  if (currentStep === 4) renderContactStep();
+  if (currentStep === 5) renderFinalStep();
+  
+  updateProgress();
+}
+
+async function nextStep() {
+  currentStep += 1;
+  await renderStep();
+}
+
+async function prevStep() {
+  if (currentStep > 0) {
+    currentStep -= 1;
+    await renderStep();
+  }
+}
+
+function renderNameStep() {
+  stepContent.innerHTML = `
+    <div class="step-label">step i</div>
+    <div class="step-title">salutations, what’s your name?</div>
+
+    <input
+      type="text"
+      id="nameInput"
+      class="step-input"
+      placeholder="your name"
+      value="${bookingData.name}"
+    />
+
+    <div class="step-actions">
+      <button class="step-nav-button secondary" disabled style="opacity:.4;cursor:not-allowed;">back</button>
+      <button class="step-nav-button primary" id="nameNext">next</button>
+    </div>
+  `;
+
+  document.getElementById("nameNext").addEventListener("click", () => {
+    const value = document.getElementById("nameInput").value.trim();
+    if (!value) {
+      alert("Please enter your name.");
+      return;
+    }
+    bookingData.name = value;
+    nextStep();
+  });
+}
+
+function renderServiceStep() {
+  stepContent.innerHTML = `
+    <div class="step-label">step ii</div>
+    <div class="step-title">what can i do you for?</div>
+    <div class="step-subtext">choose one or more options.</div>
+
+    <div class="option-grid three" id="serviceOptions">
+      ${services.map(service => `
+        <button class="step-option ${bookingData.services.includes(service.id) ? 'selected' : ''}" data-id="${service.id}">
+          <div class="option-title">${service.title}</div>
+          <div class="option-desc">${service.desc}</div>
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="step-actions">
+      <button class="step-nav-button secondary" id="serviceBack">back</button>
+      <button class="step-nav-button primary" id="serviceNext">next</button>
+    </div>
+  `;
+
+  document.querySelectorAll("#serviceOptions .step-option").forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.dataset.id;
+      if (bookingData.services.includes(id)) {
+        bookingData.services = bookingData.services.filter(item => item !== id);
+      } else {
+        bookingData.services.push(id);
+      }
+      renderServiceStep();
+    });
+  });
+
+  document.getElementById("serviceBack").addEventListener("click", prevStep);
+  document.getElementById("serviceNext").addEventListener("click", () => {
+    if (bookingData.services.length === 0) {
+      alert("Please select at least one service.");
+      return;
+    }
+    nextStep();
+  });
+}
+
+function renderPricingStep() {
+  stepContent.innerHTML = `
+    <div class="step-label">step iii</div>
+    <div class="step-title">pricing</div>
+    <div class="step-subtext">select the rate and any add-ons you want included.</div>
+
+    <div class="option-grid" id="pricingOptions">
+      ${pricingOptions.map(option => `
+        <button class="step-option ${bookingData.pricing.includes(option.id) ? 'selected' : ''}" data-id="${option.id}">
+          <div class="option-title">${option.title}</div>
+          <div class="option-desc">${option.desc}</div>
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="step-actions">
+      <button class="step-nav-button secondary" id="pricingBack">back</button>
+      <button class="step-nav-button primary" id="pricingNext">next</button>
+    </div>
+  `;
+
+  document.querySelectorAll("#pricingOptions .step-option").forEach(button => {
+    button.addEventListener("click", () => {
+        const id = button.dataset.id;
+
+        // regular rate cannot be toggled off
+        if (id === "only regular rate") {
+        return;
+        }
+
+        if (bookingData.pricing.includes(id)) {
+        bookingData.pricing = bookingData.pricing.filter(item => item !== id);
+        } else {
+        bookingData.pricing.push(id);
+        }
+
+        // ensure regular rate is always included
+        if (!bookingData.pricing.includes("only regular rate")) {
+        bookingData.pricing.unshift("only regular rate");
+        }
+
+        renderPricingStep();
+    });
+    });
+
+  document.getElementById("pricingBack").addEventListener("click", prevStep);
+  document.getElementById("pricingNext").addEventListener("click", () => {
+    if (bookingData.pricing.length === 0) {
+      alert("Please choose at least one pricing option.");
+      return;
+    }
+    nextStep();
+  });
+}
+
+function getMonthName(month, year) {
+  return new Date(year, month).toLocaleString("en-US", { month: "long", year: "numeric" });
+}
+
+function formatDateKey(year, month, day) {
+  const mm = String(month + 1).padStart(2, "0");
+  const dd = String(day).padStart(2, "0");
+  return `${year}-${mm}-${dd}`;
+}
+
+function formatDisplayDate(dateString) {
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+}
+
+function loadAvailability(year, month) {
+  return new Promise((resolve, reject) => {
+    const callbackName = `bookingAvailabilityCallback_${Date.now()}`;
+    const script = document.createElement("script");
+
+    window[callbackName] = (response) => {
+      delete window[callbackName];
+      script.remove();
+
+      console.log("Availability response:", response);
+
+      if (!response || !response.ok) {
+        reject(new Error(response?.error || "Failed to load availability"));
+        return;
+      }
+
+      availableTimesByDate = response.availability || {};
+      resolve(availableTimesByDate);
+    };
+
+    script.src = `${APPS_SCRIPT_URL}?action=availability&year=${year}&month=${month}&callback=${callbackName}`;
+    console.log("Loading availability from:", script.src);
+
+    script.onerror = () => {
+      delete window[callbackName];
+      script.remove();
+      reject(new Error("Failed to load availability"));
+    };
+
+    document.body.appendChild(script);
+  });
+}
+
+async function renderCalendarStep() {
+  try {
+    await loadAvailability(currentYear, currentMonth + 1);
+  } catch (err) {
+    console.error("Availability load failed:", err);
+    stepContent.innerHTML = `
+      <div class="step-label">step iv</div>
+      <div class="step-title">what date works for you?</div>
+      <div class="step-subtext">Couldn’t load availability right now. Please try again.</div>
+      <div class="step-actions">
+        <button class="step-nav-button secondary" id="calendarBack">back</button>
+      </div>
+    `;
+    document.getElementById("calendarBack").addEventListener("click", prevStep);
+    return;
+  }
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  let calendarDays = "";
+
+  for (let i = 0; i < firstDay; i++) {
+    calendarDays += `<button class="calendar-day empty" disabled></button>`;
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const key = formatDateKey(currentYear, currentMonth, day);
+
+    const thisDate = new Date(currentYear, currentMonth, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isPast = thisDate < today;
+    const isAvailable = !!availableTimesByDate[key];
+    const isSelected = bookingData.selectedDate === key;
+
+    const shouldDisable = isPast || !isAvailable;
+
+    calendarDays += `
+      <button
+        class="calendar-day ${shouldDisable ? "disabled" : ""} ${isSelected ? "selected" : ""}"
+        data-date="${key}"
+        ${shouldDisable ? "disabled" : ""}
+      >
+        ${day}
+      </button>
+    `;
+  }
+
+  let times = bookingData.selectedDate ? (availableTimesByDate[bookingData.selectedDate] || []) : [];
+
+    if (bookingData.selectedDate) {
+    const [year, month, day] = bookingData.selectedDate.split("-").map(Number);
+    const selected = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selected < today) {
+        bookingData.selectedDate = "";
+        bookingData.selectedTime = "";
+        times = [];
+    }
+    }
+
+  stepContent.innerHTML = `
+    <div class="step-label">step iv</div>
+    <div class="step-title">what date works for you?</div>
+    <div class="step-subtext">select a date, then choose an available time for that day.</div>
+
+    <div class="calendar-shell">
+      <div class="calendar-box">
+        <div class="calendar-header">
+          <button class="calendar-nav" id="prevMonth">&larr;</button>
+          <div class="calendar-month">${getMonthName(currentMonth, currentYear)}</div>
+          <button class="calendar-nav" id="nextMonth">&rarr;</button>
+        </div>
+
+        <div class="calendar-weekdays">
+          <div class="calendar-weekday">sun</div>
+          <div class="calendar-weekday">mon</div>
+          <div class="calendar-weekday">tue</div>
+          <div class="calendar-weekday">wed</div>
+          <div class="calendar-weekday">thu</div>
+          <div class="calendar-weekday">fri</div>
+          <div class="calendar-weekday">sat</div>
+        </div>
+
+        <div class="calendar-days">
+          ${calendarDays}
+        </div>
+      </div>
+
+      ${bookingData.selectedDate ? `
+        <div class="time-box">
+            <div class="time-title">
+            available times for ${formatDisplayDate(bookingData.selectedDate)}
+            </div>
+
+            <div class="time-grid">
+            ${
+                times.length
+                ? times.map(time => `
+                    <button class="step-time-button ${bookingData.selectedTime === time ? "selected" : ""}" data-time="${time}">
+                        ${time}
+                    </button>
+                    `).join("")
+                : `<div class="step-subtext" style="margin-bottom:0;">no times available for this date.</div>`
+            }
+            </div>
+        </div>
+        ` : ""}
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button class="step-nav-button secondary" id="calendarBack">back</button>
+      <button class="step-nav-button primary" id="calendarNext">next</button>
+    </div>
+  `;
+
+  document.getElementById("prevMonth").addEventListener("click", () => {
+    currentMonth -= 1;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear -= 1;
+    }
+    renderCalendarStep();
+  });
+
+  document.getElementById("nextMonth").addEventListener("click", () => {
+    currentMonth += 1;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear += 1;
+    }
+    renderCalendarStep();
+  });
+
+  document.querySelectorAll(".calendar-day[data-date]").forEach(button => {
+    button.addEventListener("click", () => {
+      bookingData.selectedDate = button.dataset.date;
+      bookingData.selectedTime = "";
+      renderCalendarStep();
+    });
+  });
+
+  document.querySelectorAll(".step-time-button[data-time]").forEach(button => {
+    button.addEventListener("click", () => {
+      bookingData.selectedTime = button.dataset.time;
+      renderCalendarStep();
+    });
+  });
+
+  document.getElementById("calendarBack").addEventListener("click", prevStep);
+  document.getElementById("calendarNext").addEventListener("click", () => {
+    if (!bookingData.selectedDate || !bookingData.selectedTime) {
+      alert("Please choose both a date and a time.");
+      return;
+    }
+    nextStep();
+  });
+}
+
+function renderContactStep() {
+  stepContent.innerHTML = `
+    <div class="step-label">step v</div>
+    <div class="step-title">are you sure about that?</div>
+    <div class="step-subtext">review your request, then enter your phone number and email.</div>
+
+    <div class="summary-box">
+      <div class="summary-line"><strong>name:</strong> ${bookingData.name}</div>
+      <div class="summary-line"><strong>service:</strong> ${bookingData.services.join(", ")}</div>
+      <div class="summary-line"><strong>pricing:</strong> ${bookingData.pricing.join(", ")}</div>
+      <div class="summary-line"><strong>date:</strong> ${formatDisplayDate(bookingData.selectedDate)}</div>
+      <div class="summary-line"><strong>time:</strong> ${bookingData.selectedTime}</div>
+    </div>
+
+    <input
+      type="tel"
+      id="phoneInput"
+      class="step-input"
+      placeholder="phone number"
+      value="${bookingData.phone}"
+    />
+
+    <input
+      type="email"
+      id="emailInput"
+      class="step-input"
+      placeholder="email"
+      value="${bookingData.email}"
+    />
+
+    <div class="step-actions">
+      <button class="step-nav-button secondary" id="contactBack">back</button>
+      <button class="step-nav-button primary" id="contactSubmit">submit request</button>
+    </div>
+  `;
+
+  document.getElementById("contactBack").addEventListener("click", prevStep);
+
+  document.getElementById("contactSubmit").addEventListener("click", async () => {
+    const phone = document.getElementById("phoneInput").value.trim();
+    const email = document.getElementById("emailInput").value.trim();
+
+    if (!phone || !email) {
+        alert("Please enter both phone number and email.");
+        return;
+    }
+
+    bookingData.phone = phone;
+    bookingData.email = email;
+
+    try {
+        await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+            ...bookingData,
+            submittedAt: new Date().toISOString(),
+            displayDate: formatDisplayDate(bookingData.selectedDate)
+        })
+        });
+
+        nextStep();
+    } catch (e) {
+        console.error(e);
+        alert("Something went wrong while submitting your request.");
+    }
+    });
+}
+
+function renderFinalStep() {
+  stepProgressBar.style.width = "100%";
+
+  stepContent.innerHTML = `
+    <div class="step-label">request received</div>
+    <div class="step-title">you’re all set.</div>
+    <div class="confirmation-message">
+      your appointment request has been successfully submitted.<br><br>
+      your request will be manually reviewed and a confirmation with further details will be sent to your email within 24 hours. if you have any questions in the meantime, feel free to reach out via email or phone. <br><br>
+      thank you and salutations.
+    </div>
+
+    <div class="summary-box" style="margin-top:20px;">
+      <div class="summary-line"><strong>name:</strong> ${bookingData.name}</div>
+      <div class="summary-line"><strong>service:</strong> ${bookingData.services.join(", ")}</div>
+      <div class="summary-line"><strong>pricing:</strong> ${bookingData.pricing.join(", ")}</div>
+      <div class="summary-line"><strong>date:</strong> ${formatDisplayDate(bookingData.selectedDate)}</div>
+      <div class="summary-line"><strong>time:</strong> ${bookingData.selectedTime}</div>
+      <div class="summary-line"><strong>phone:</strong> ${bookingData.phone}</div>
+      <div class="summary-line"><strong>email:</strong> ${bookingData.email}</div>
+    </div>
+  `;
+}
+
+renderStep();
+</script>
+</html>
