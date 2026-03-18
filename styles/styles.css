@@ -423,3 +423,11 @@ body {
 .promo-thumb:hover {
   transform: scale(1.03);
 }
+.seo-text{
+position:absolute;
+left:-9999px;
+top:auto;
+width:1px;
+height:1px;
+overflow:hidden;
+}
