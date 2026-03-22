@@ -710,9 +710,10 @@ body {
   letter-spacing: -0.11em;
   font-size: clamp(20px, 3.2vw, 28px);
   color: #fff;
-  width: 10ch;
+  width: auto;
   height: 1.2em;
   line-height: 1.2;
   white-space: nowrap;
+  text-align: center;
 }
 
