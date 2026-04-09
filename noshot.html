@@ -2884,19 +2884,23 @@
     async function startDownloadFlow(urls, mode) {
         logEvent(analytics, 'download_start', { mode, count: urls.length });
         showProgress();
-        await waitForMinCycles();
-        await hideProgress();
 
-        if (mode === 'selected') {
+        try {
+            await waitForMinCycles();
+
+            if (mode === 'selected') {
             await new Promise((resolve) => batchDownload(urls, resolve));
-        } else {
+            } else {
             await zipAndDownload(urls, 'nyamachoma.zip');
+            }
+
+            logEvent(analytics, 'download_complete', { mode, count: urls.length });
+
+            const user = getSessionUser();
+            logDownload({ mode, urls, user });
+        } finally {
+            await hideProgress();
         }
-
-        logEvent(analytics, 'download_complete', { mode, count: urls.length });
-
-        const user = getSessionUser();
-        logDownload({ mode, urls, user });
     }
 
 
