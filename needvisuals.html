@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>need visuals?</title>
   <link rel="stylesheet" href="styles/styles-needvisuals.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -423,7 +426,7 @@ function loadAvailability(year, month) {
       resolve(availableTimesByDate);
     };
 
-    script.src = `${APPS_SCRIPT_URL}?action=availability&year=${year}&month=${month}&callback=${callbackName}`;
+    script.src = `${APPS_SCRIPT_URL}?action=availability&year=${year}&month=${month}&callback=${callbackName}&t=${Date.now()}`;
     console.log("Loading availability from:", script.src);
 
     script.onerror = () => {
